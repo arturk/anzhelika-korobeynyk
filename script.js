@@ -117,6 +117,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let isScrolling = false;
     let lastScrollTime = Date.now();
     let scrollTimeout;
+    let wheelDeltaAccumulator = 0; // Track wheel movement
+    const wheelThreshold = 80; // Threshold before section change
 
     // Disable regular scrolling and use our custom navigation instead
     document.body.style.overflow = 'hidden';
@@ -126,21 +128,35 @@ document.addEventListener('DOMContentLoaded', function() {
         const activeSection = sections[currentSection];
         const container = activeSection.querySelector('.container');
 
-        // Allow scrolling within the section's container if it has scrollable content
+        // For scrolling within a section's container
         if (container && container.scrollHeight > container.clientHeight) {
             const scrollingDown = e.deltaY > 0;
             const scrolledToBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 5;
             const scrolledToTop = container.scrollTop <= 0;
 
-            // Allow content to scroll within container before navigating
-            if (scrollingDown && !scrolledToBottom) {
-                return; // Let the container scroll down naturally
-            } else if (!scrollingDown && !scrolledToTop) {
-                return; // Let the container scroll up naturally
+            // If not at extremes, handle regular content scrolling
+            if ((scrollingDown && !scrolledToBottom) || (!scrollingDown && !scrolledToTop)) {
+                // Regular content scrolling - reset accumulator
+                wheelDeltaAccumulator = 0;
+                return; // Let the browser handle normal content scrolling
+            }
+
+            // At the edge of content (top or bottom), start accumulating wheel delta
+            if ((scrollingDown && scrolledToBottom) || (!scrollingDown && scrolledToTop)) {
+                wheelDeltaAccumulator += Math.abs(e.deltaY);
+
+                // Only trigger section change after sufficient wheel movement
+                if (wheelDeltaAccumulator < wheelThreshold) {
+                    e.preventDefault();
+                    return; // Don't change section until threshold is reached
+                }
+
+                // Reset accumulator when threshold is reached
+                wheelDeltaAccumulator = 0;
             }
         }
 
-        // Prevent default scrolling for inter-section navigation
+        // Prevent default scrolling for section navigation
         e.preventDefault();
 
         // Rate limiting - don't allow scrolling too frequently
@@ -176,57 +192,44 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Check if trying to navigate to next section (scrolling down)
-        if (sectionIndex > currentSection) {
-            // Get the current active section element
-            const activeSection = sections[currentSection];
-            const container = activeSection.querySelector('.container');
+        // Reset wheel accumulator
+        wheelDeltaAccumulator = 0;
 
-            // Check if the section has scrollable content
-            if (container && container.scrollHeight > container.clientHeight) {
-                // If the container is not scrolled to the bottom, scroll it first
-                if (container.scrollTop + container.clientHeight < container.scrollHeight - 5) {
-                    container.scrollTo({
-                        top: container.scrollHeight,
-                        behavior: 'smooth'
-                    });
-
-                    // Return and don't navigate yet - we'll navigate after scrolling completes
-                    setTimeout(() => {
-                        // Now proceed with navigation after scrolling is complete
-                        navigateToSection(sectionIndex);
-                    }, 500);
-                    return;
-                }
-            }
-        }
+        // REMOVED the forced scroll to bottom code that was here
+        // Now we'll immediately transition to the next section
 
         isScrolling = true;
 
-        // Fade out current section
+        // First make the overlay visible
         transitionOverlay.classList.add('active');
-        sections[currentSection].classList.remove('active');
 
-        // Make sure the current section is not visible anymore
-        sections[currentSection].style.opacity = '0';
-        sections[currentSection].style.visibility = 'hidden';
-        sections[currentSection].style.zIndex = '1';
-
-        // After overlay has faded in, change sections
+        // Hide current section after a small delay (let overlay become visible first)
         setTimeout(() => {
+            // Hide current section
+            sections[currentSection].classList.remove('active');
+            sections[currentSection].style.opacity = '0';
+            sections[currentSection].style.visibility = 'hidden';
+            sections[currentSection].style.zIndex = '1';
+
             // Update current section index
             currentSection = sectionIndex;
 
             // Update all sections
             sections.forEach((section, index) => {
-                // Set higher z-index for active section
                 if (index === currentSection) {
+                    // Set higher z-index for active section
                     section.classList.add('active');
                     section.style.zIndex = '50';
                     section.style.opacity = '1';
                     section.style.visibility = 'visible';
 
-                    // Also ensure that content within the section is visible
+                    // Reset scroll position of new section
+                    const container = section.querySelector('.container');
+                    if (container) {
+                        container.scrollTop = 0;
+                    }
+
+                    // Ensure section content is visible
                     const sectionContent = section.querySelector('.about-content, .contact-content');
                     if (sectionContent) {
                         sectionContent.style.opacity = '1';
@@ -235,7 +238,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
 
                     // Make sure the container is visible too
-                    const container = section.querySelector('.container');
                     if (container) {
                         container.style.opacity = '1';
                         container.style.visibility = 'visible';
@@ -259,17 +261,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            // Fade back in
-            transitionOverlay.classList.remove('active');
-
-            // Update aria-current for accessibility
-            updateAriaCurrentForNav();
-
-            // Allow scrolling again after transition completes
+            // Wait a bit before removing the overlay
             setTimeout(() => {
-                isScrolling = false;
-            }, 500);
-        }, 400);
+                // Hide the overlay
+                transitionOverlay.classList.remove('active');
+
+                // Update aria-current for accessibility
+                updateAriaCurrentForNav();
+
+                // Allow scrolling again after transition completes
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 400);
+            }, 200);
+        }, 300);
     }
 
     // Setup navigation links to navigate to sections
