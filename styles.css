@@ -492,6 +492,53 @@ nav ul li a[aria-current="page"]::after {
     margin-bottom: 0;
 }
 
+/* Highlighted text for Ansku's Tietoa page */
+.about-text .highlight {
+    color: var(--primary-color);
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.about-text .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.about-text .highlight:hover {
+    color: var(--secondary-color);
+}
+
+.about-text .highlight:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.about-text .highlight-title {
+    display: inline-block;
+    color: white;
+    background-color: var(--primary-color);
+    padding: 0.2rem 0.6rem;
+    margin-bottom: 0.5rem;
+    border-radius: 3px;
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Additional styles for the Tietoa section */
+.about-text p {
+    margin-bottom: 1rem;
+}
+
 /* Fix Contact Section Visibility */
 #contact.section {
     background-color: var(--accent-color);
