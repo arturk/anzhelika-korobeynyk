@@ -123,7 +123,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup the scroll event with wheel
     document.addEventListener('wheel', function(e) {
-        // Prevent default scrolling
+        const activeSection = sections[currentSection];
+        const container = activeSection.querySelector('.container');
+
+        // Allow scrolling within the section's container if it has scrollable content
+        if (container && container.scrollHeight > container.clientHeight) {
+            const scrollingDown = e.deltaY > 0;
+            const scrolledToBottom = container.scrollTop + container.clientHeight >= container.scrollHeight - 5;
+            const scrolledToTop = container.scrollTop <= 0;
+
+            // Allow content to scroll within container before navigating
+            if (scrollingDown && !scrolledToBottom) {
+                return; // Let the container scroll down naturally
+            } else if (!scrollingDown && !scrolledToTop) {
+                return; // Let the container scroll up naturally
+            }
+        }
+
+        // Prevent default scrolling for inter-section navigation
         e.preventDefault();
 
         // Rate limiting - don't allow scrolling too frequently
@@ -157,6 +174,31 @@ document.addEventListener('DOMContentLoaded', function() {
         // Ensure we're within bounds
         if (sectionIndex < 0 || sectionIndex >= totalSections || isScrolling) {
             return;
+        }
+
+        // Check if trying to navigate to next section (scrolling down)
+        if (sectionIndex > currentSection) {
+            // Get the current active section element
+            const activeSection = sections[currentSection];
+            const container = activeSection.querySelector('.container');
+
+            // Check if the section has scrollable content
+            if (container && container.scrollHeight > container.clientHeight) {
+                // If the container is not scrolled to the bottom, scroll it first
+                if (container.scrollTop + container.clientHeight < container.scrollHeight - 5) {
+                    container.scrollTo({
+                        top: container.scrollHeight,
+                        behavior: 'smooth'
+                    });
+
+                    // Return and don't navigate yet - we'll navigate after scrolling completes
+                    setTimeout(() => {
+                        // Now proceed with navigation after scrolling is complete
+                        navigateToSection(sectionIndex);
+                    }, 500);
+                    return;
+                }
+            }
         }
 
         isScrolling = true;

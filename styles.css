@@ -34,6 +34,12 @@ html {
     scroll-behavior: smooth;
     height: 100%;
     overflow: hidden;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
 }
 
 body {
@@ -42,8 +48,14 @@ body {
     line-height: 1.6;
     height: 100%;
     overflow: hidden;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
     /* We don't need this anymore as we're handling scrolling in JS */
     /* perspective: 1px; */
+}
+
+body::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
 }
 
 img {
@@ -71,6 +83,15 @@ ul {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
+    max-height: 100vh;
+    overflow-y: auto;
+    /* Hide scrollbars but allow scrolling */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
 }
 
 /* Main content container - we don't need extra height anymore */
@@ -98,10 +119,16 @@ main {
 
 /* Special styling for active section */
 .section.active {
-    opacity: 1 !important;
-    pointer-events: all !important;
-    z-index: 50 !important;
-    visibility: visible !important;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    z-index: 50;
+}
+
+.section.active .container {
+    overflow-y: auto;
+    max-height: calc(100vh - 100px);
+    padding-bottom: 50px;
 }
 
 /* Allow the first section to be visible by default */
@@ -678,6 +705,13 @@ nav ul li a[aria-current="page"]::after {
     z-index: 900;
 }
 
+/* Hide footer on mobile devices */
+@media (max-width: 768px) {
+    .main-footer {
+        display: none;
+    }
+}
+
 .footer-content {
     display: flex;
     justify-content: space-between;
@@ -841,6 +875,11 @@ nav ul li a[aria-current="page"]::after {
 
     .about-image img {
         transform: rotate(0deg);
+    }
+
+    /* Hide scroll indicator on mobile devices */
+    .scroll-indicator {
+        display: none;
     }
 }
 
