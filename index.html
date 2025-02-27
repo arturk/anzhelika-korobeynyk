@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anzhelika Korobeynyk | Kokoomus</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <style>
+        /* Emergency inline styles to fix visibility issues */
+        section#about.section.active,
+        section#contact.section.active {
+            opacity: 1 !important;
+            visibility: visible !important;
+            z-index: 50 !important;
+            display: flex !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100vh !important;
+            pointer-events: all !important;
+        }
+
+        section#about.section.active .container,
+        section#contact.section.active .container {
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+            position: relative !important;
+            z-index: 15 !important;
+            width: 90% !important;
+            max-width: 1200px !important;
+        }
+
+        .about-content, .contact-content {
+            opacity: 1 !important;
+            visibility: visible !important;
+            z-index: 10 !important;
+            position: relative !important;
+            display: flex !important;
+        }
+
+        section#about.section.active .about-content,
+        section#contact.section.active .contact-content {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            padding: 2rem !important;
+            border-radius: 8px !important;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+            display: flex !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <img src="images/logo.svg" alt="Kokoomus">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Koti</a></li>
+                    <li><a href="#about">Tietoa</a></li>
+                    <li><a href="#policies">Politiikka</a></li>
+                    <li><a href="#achievements">Saavutukset</a></li>
+                    <li><a href="#contact">Yhteystiedot</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="content-container">
+        <section id="home" class="section hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Anzhelika Korobeynyk</h1>
+                    <h2>Kokoomuksen edustaja</h2>
+                    <p class="intro">Rakentamassa vahvempaa ja vakaampaa Suomea</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn primary-btn">Ota yhteyttä</a>
+                        <a href="#policies" class="btn secondary-btn">Lue lisää</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/photo.jpg" alt="Anzhelika Korobeynyk">
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section about">
+            <div class="container">
+                <h2 class="section-title">Tietoa minusta</h2>
+                <div class="about-content">
+                    <div class="about-image">
+                        <img src="images/photo.jpg" alt="About Anzhelika">
+                    </div>
+                    <div class="about-text">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.</p>
+                        <p>Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio.</p>
+                        <p>Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="policies" class="section policies">
+            <div class="container">
+                <h2 class="section-title">Politiikka</h2>
+                <div class="policy-grid">
+                    <div class="policy-card">
+                        <div class="icon"><i class="fas fa-building"></i></div>
+                        <h3>Talous</h3>
+                        <p>Vahva talous on hyvinvoivan yhteiskunnan perusta. Edistän vastuullista talouspolitiikkaa.</p>
+                    </div>
+                    <div class="policy-card">
+                        <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Koulutus</h3>
+                        <p>Laadukas koulutus kaikille on avain Suomen menestykseen myös tulevaisuudessa.</p>
+                    </div>
+                    <div class="policy-card">
+                        <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                        <h3>Terveys</h3>
+                        <p>Jokaisen suomalaisen tulee saada laadukasta terveydenhuoltoa kohtuullisessa ajassa.</p>
+                    </div>
+                    <div class="policy-card">
+                        <div class="icon"><i class="fas fa-leaf"></i></div>
+                        <h3>Ympäristö</h3>
+                        <p>Kestävä kehitys ja ilmastonmuutoksen torjunta ovat välttämättömiä tulevaisuudellemme.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="achievements" class="section achievements">
+            <div class="container">
+                <h2 class="section-title">Saavutukset</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2022</div>
+                        <div class="timeline-content">
+                            <h3>Saavutus 1</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2020</div>
+                        <div class="timeline-content">
+                            <h3>Saavutus 2</h3>
+                            <p>Vivamus hendrerit arcu sed erat molestie vehicula sed auctor neque eu tellus.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2018</div>
+                        <div class="timeline-content">
+                            <h3>Saavutus 3</h3>
+                            <p>Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section contact">
+            <div class="container">
+                <h2 class="section-title">Ota yhteyttä</h2>
+                <div class="contact-content centered-contact">
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <div class="icon"><i class="fas fa-envelope"></i></div>
+                            <p class="protected-email">Email osoite on suojattu boteilta</p>
+                        </div>
+                        <div class="info-item">
+                            <div class="icon"><i class="fas fa-phone"></i></div>
+                            <p class="protected-phone">Puhelinnumero on suojattu boteilta</p>
+                        </div>
+                        <div class="info-item">
+                            <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <p>Kirkkonummi, Suomi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="images/logo.svg" alt="Kokoomus">
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="#home">Koti</a></li>
+                        <li><a href="#about">Tietoa</a></li>
+                        <li><a href="#policies">Politiikka</a></li>
+                        <li><a href="#achievements">Saavutukset</a></li>
+                        <li><a href="#contact">Yhteystiedot</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Anzhelika Korobeynyk. Kaikki oikeudet pidätetään.</p>
+                <p class="portfolio-credit">Sivuston toteutti <a href="https://www.linkedin.com/in/arturko" target="_blank">Artur Korobeynyk</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
