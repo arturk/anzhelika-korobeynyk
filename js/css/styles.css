@@ -95,6 +95,8 @@ p {
     background-position: center;
     opacity: 0.15;
     z-index: -1;
+    transition: background-position 0.5s ease-out;
+    will-change: transform, background-position;
 }
 
 /* Bootstrap Compatibility Adjustments */
@@ -779,12 +781,22 @@ nav ul li a.active::after {
 
 /* Animation Classes */
 .zoom-bg {
-    animation: zoomBg 30s infinite alternate ease-in-out;
+    animation: zoomBg 20s infinite alternate ease-in-out;
+    transition: transform 0.5s ease-out;
 }
 
 @keyframes zoomBg {
     0% {
         transform: scale(1);
+    }
+    25% {
+        transform: scale(1.05);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    75% {
+        transform: scale(1.08);
     }
     100% {
         transform: scale(1.1);

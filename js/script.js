@@ -117,6 +117,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Use GSAP for smoother animation control
                 gsap.set(background, { transformOrigin: 'center center' });
+
+                // Add subtle random movements with GSAP
+                const randomizeMovement = () => {
+                    // Create a random scale target between 1.02 and 1.08
+                    const scaleTarget = 1 + (Math.random() * 0.06 + 0.02);
+
+                    // Create random position adjustments (subtle)
+                    const xMove = (Math.random() * 2 - 1) * 1.5; // -1.5% to 1.5%
+                    const yMove = (Math.random() * 2 - 1) * 1.5; // -1.5% to 1.5%
+
+                    // Random duration between 8 and 15 seconds
+                    const duration = Math.random() * 7 + 8;
+
+                    // Animate to these random values
+                    gsap.to(background, {
+                        scale: scaleTarget,
+                        xPercent: xMove,
+                        yPercent: yMove,
+                        duration: duration,
+                        ease: 'sine.inOut',
+                        onComplete: randomizeMovement
+                    });
+                };
+
+                // Start the randomized movement
+                randomizeMovement();
             }
         }
     }
