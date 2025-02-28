@@ -1152,3 +1152,58 @@ section {
     filter: blur(1px);
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
+
+/* Dissolve Particles Effect */
+.dissolve-particles-container {
+    position: absolute;
+    pointer-events: none;
+    z-index: 999;
+    overflow: visible;
+}
+
+.dissolve-particle {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform, opacity, scale;
+    filter: blur(1px);
+    transform-origin: center center;
+    transition: none !important;
+}
+
+.dissolve-text-particle {
+    position: absolute;
+    transform-origin: center center;
+    will-change: transform, opacity, scale, rotation;
+    white-space: nowrap;
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(0,0,0,0.3);
+    user-select: none;
+    transition: none !important;
+}
+
+/* Animation for dissolving elements */
+@keyframes dissolveFlash {
+    0% { opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { opacity: 0; }
+}
+
+.dissolving {
+    position: relative;
+    z-index: 1;
+    transition: opacity 0.5s ease-out;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* Make the dissolve effect work with AOS animations */
+[data-aos].dissolving {
+    transition: transform 0.5s, opacity 0.5s;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* Help prevent flickering during animations */
+.dissolve-particles-container * {
+    backface-visibility: hidden;
+}
