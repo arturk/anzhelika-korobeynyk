@@ -1181,94 +1181,131 @@ nav ul li a.active::after {
     overflow: visible; /* Show all content */
     transition: opacity 0.3s ease, transform 0.3s ease; /* Match transition timing with other elements */
     will-change: opacity, transform; /* Optimize transitions */
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/x8AAuMB8DtgI3MAAAAASUVORK5CYII=');
+    background-size: 100% 30px;
+    background-repeat: repeat;
+    position: relative;
+    animation: paperFloat 8s ease-in-out infinite;
 }
 
-.about-image img {
+/* Paper texture overlay */
+.about-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/png;base64,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');
+    opacity: 0.06;
+    mix-blend-mode: multiply;
     border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-    border: 4px solid white;
-    transition: transform 0.3s ease; /* Add transition for smoother animations */
+    pointer-events: none;
 }
 
+/* Lined paper effect */
 .about-text {
-    padding: 1.5rem; /* More consistent padding */
-    color: var(--secondary-color); /* Darker text color for better contrast */
-    text-align: left; /* Ensure text is properly aligned */
-    position: relative; /* Ensure proper stacking */
-    z-index: 31; /* Higher z-index than parent */
-    transition: opacity 0.3s ease, transform 0.3s ease; /* Match transition timing */
+    padding: 0; /* Remove padding to make room for lined effect */
+    color: var(--secondary-color);
+    text-align: left;
+    position: relative;
+    z-index: 31;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    background-color: transparent;
+    background-image:
+        linear-gradient(transparent 29px, #bbd5e0 29px, #bbd5e0 30px, transparent 30px);
+    background-size: 100% 30px;
+    padding-top: 0.75rem;
+    position: relative;
+}
+
+/* Vertical margin line */
+.about-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 30px;
+    height: 100%;
+    width: 1px;
+    background-color: #f0a4a4;
+    z-index: -1;
+}
+
+/* Paper edge effect */
+.about-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 5px;
+    background: linear-gradient(to right, transparent, rgba(0,0,0,0.03));
+    z-index: -1;
 }
 
 .about-text p {
-    margin-bottom: 1.5rem; /* More space between paragraphs */
-    font-size: 1.05rem; /* Slightly larger text for better readability */
-    line-height: 1.8; /* Improved line height for readability */
-    letter-spacing: 0.01em; /* Slightly improved letter spacing */
-    max-width: 95ch; /* Limit line length for better readability */
-}
-
-.highlight {
-    color: var(--primary-color);
-    font-weight: 700; /* Increased from 600 to 700 for better visibility */
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.76; /* Adjust to match the line height of the paper */
+    letter-spacing: 0.01em;
+    max-width: 95ch;
+    padding-left: 45px; /* Space for the margin line */
     position: relative;
-    padding: 0 2px; /* Small padding around highlighted text */
+    font-family: 'Indie Flower', cursive, 'Poppins', sans-serif;
 }
 
-.highlight::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 30%;
-    bottom: 0;
-    left: 0;
-    background-color: var(--highlight-color);
-    opacity: 0.3;
-    z-index: -1;
-    border-radius: 3px;
-}
-
-.highlight-title {
-    color: var(--primary-color);
+/* Add some styling for a handwritten feel */
+.about-text .highlight {
+    font-family: 'Indie Flower', cursive, 'Poppins', sans-serif;
     font-weight: 700;
-    font-size: calc(var(--text-lg) + 0.15rem); /* Slightly larger */
-    display: block;
-    margin-bottom: 1rem; /* More space below title */
-    border-left: 3px solid var(--highlight-color);
-    padding-left: 12px; /* Slightly more padding */
-    line-height: 1.4; /* Improved line height */
+    position: relative;
+    color: #003C8F;
 }
 
-/* Theme Cards */
+/* Underline effect for highlighted text */
+.about-text .highlight::after {
+    background: #ffca2855;
+}
+
+/* Style the theme cards to look like sticky notes */
 .theme-card {
-    background-color: rgba(255, 255, 255, 0.97); /* More opaque for better readability */
-    z-index: 40; /* Ensure cards are on top */
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    padding: 1.75rem; /* More padding inside cards */
-    height: 100%;
-    transition: transform var(--transition-medium) cubic-bezier(0.34, 1.56, 0.64, 1),
-                box-shadow var(--transition-medium) cubic-bezier(0.25, 0.1, 0.25, 1),
-                background-color var(--transition-medium) cubic-bezier(0.25, 0.1, 0.25, 1);
-    border-top: 4px solid var(--primary-color);
-    border-left: 1px solid var(--medium-gray);
-    border-right: 1px solid var(--medium-gray);
-    border-bottom: 1px solid var(--medium-gray);
-    will-change: transform, box-shadow;
-    margin-bottom: 1.5rem; /* Extra space between cards */
+    background-color: #fff9c4;
+    border: 1px solid #e6d292;
+    border-radius: 4px;
+    padding: 15px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    transform: rotate(-1deg);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.theme-card:nth-child(even) {
+    background-color: #e8f5e9;
+    border-color: #b3d9b8;
+    transform: rotate(1deg);
 }
 
 .theme-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 98, 136, 0.2);
+    transform: scale(1.02) rotate(0);
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
+    z-index: 10;
 }
 
-.theme-card p {
-    font-size: 1.05rem; /* Slightly larger text */
-    margin-bottom: 0;
-    color: var(--text-color); /* Ensure theme card text has proper contrast */
-    text-align: left;
-    line-height: 1.7; /* Improved line height for better readability */
+/* Add a pin appearance to the corner of each card */
+.theme-card::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(135deg, #ff6b6b, #cc5858);
+    border-radius: 50%;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
+
+/* Import the Indie Flower font for a handwritten appearance */
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
 /* Policies Section */
 .policy-grid {
@@ -2207,4 +2244,134 @@ nav ul li a.active::after {
         margin-bottom: 2rem;
         margin-top: 1rem;
     }
+}
+
+/* Paper corner fold effect for the about content */
+.about-content {
+    position: relative;
+    overflow: visible;
+}
+
+.about-content::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    right: 0;
+    border-style: solid;
+    border-width: 0 30px 30px 0;
+    border-color: transparent #d9d9d9 transparent transparent;
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+    z-index: 35;
+}
+
+/* Add subtle paper movement animation */
+@keyframes paperFloat {
+    0% { transform: rotate(0deg) translateY(0); }
+    50% { transform: rotate(0.5deg) translateY(-2px); }
+    100% { transform: rotate(0deg) translateY(0); }
+}
+
+.about-content {
+    animation: paperFloat 8s ease-in-out infinite;
+}
+
+/* Add a paper clip visual element */
+.about-text::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 25px;
+    height: 50px;
+    background: linear-gradient(135deg, #a7a7a7, #d1d1d1);
+    border-radius: 5px 5px 0 0;
+    border: 1px solid #8e8e8e;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    transform: rotate(-45deg);
+    z-index: 40;
+}
+
+/* Add a subtle shadow under the theme cards for a 3D effect */
+.theme-card {
+    position: relative;
+}
+
+.theme-card::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    left: 5px;
+    right: 5px;
+    height: 7px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Add a little tape effect to the top of the theme cards */
+.theme-card:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 15px;
+    background-color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(0,0,0,0.1);
+    opacity: 0.7;
+    z-index: 2;
+}
+
+/* Style the highlight titles to look like they're highlighted with a marker */
+.highlight-title {
+    display: inline-block;
+    position: relative;
+    font-family: 'Indie Flower', cursive, 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #333;
+    z-index: 1;
+    padding: 0 5px;
+}
+
+.highlight-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 10px;
+    background-color: #ffdf7e;
+    z-index: -1;
+    transform: rotate(-1deg);
+}
+
+/* Paper clip visual element - use ::after instead of ::before to avoid conflicts */
+.about-text::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 25px;
+    height: 50px;
+    background: linear-gradient(135deg, #a7a7a7, #d1d1d1);
+    border-radius: 5px 5px 0 0;
+    border: 1px solid #8e8e8e;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    transform: rotate(-45deg);
+    z-index: 40;
+}
+
+/* Paper edge effect - moved to a new class */
+.about-text .paper-edge {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 5px;
+    background: linear-gradient(to right, transparent, rgba(0,0,0,0.03));
+    z-index: -1;
 }
