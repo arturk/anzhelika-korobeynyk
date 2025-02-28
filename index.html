@@ -27,53 +27,61 @@
         </div>
     </div>
 
-    <!-- Page transition overlay -->
-    <div class="page-transition-overlay"></div>
-
-    <!-- Page background and overlay (now global) -->
+    <!-- Page background -->
     <div class="page-background"></div>
 
-    <header class="main-header">
+    <!-- Navbar -->
+    <nav id="mainNav" class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <div class="logo">
-                <img src="images/logo.svg" alt="Kokoomus" class="animate-pulse">
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Koti</a></li>
-                    <li><a href="#about">Tietoa</a></li>
-                    <li><a href="#policies">Politiikka</a></li>
-                    <li><a href="#achievements">Saavutukset</a></li>
-                    <li><a href="#contact">Yhteystiedot</a></li>
-                </ul>
-            </nav>
-            <button class="mobile-menu-btn d-md-none">
-                <span></span>
-                <span></span>
-                <span></span>
+            <a class="navbar-brand" href="#home">
+                <img src="images/logo.svg" alt="Kokoomus" class="logo-img">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Koti</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Tietoa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#policies">Politiikka</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#achievements">Saavutukset</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Yhteystiedot</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <main id="content-container">
-        <section id="home" class="section hero active">
-            <div class="container">
-                <div class="section-inner">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8 hero-content text-center">
-                            <h1>Anzhelika Korobeynyk</h1>
-                            <h2>Kokoomuksen edustaja</h2>
-                            <p class="intro">Rakentamassa vahvempaa ja vakaampaa Suomea</p>
-                            <div class="cta-buttons">
-                                <a href="#contact" class="btn primary-btn animate-hover">Ota yhteyttä</a>
-                                <a href="#policies" class="btn secondary-btn animate-hover">Lue lisää</a>
-                            </div>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-8 mx-auto text-center">
+                    <div class="hero-content">
+                        <div class="badges-container">
+                            <div class="badge-kokoomus">#1</div>
+                        </div>
+                        <h1 class="display-4" data-aos="fade-up">Anzhelika Korobeynyk</h1>
+                        <h2 data-aos="fade-up" data-aos-delay="200">Kokoomuksen edustaja</h2>
+                        <p class="lead intro" data-aos="fade-up" data-aos-delay="300">Rakentamassa vahvempaa ja vakaampaa Suomea</p>
+                        <div class="cta-buttons" data-aos="fade-up" data-aos-delay="400">
+                            <a href="#contact" class="btn btn-primary btn-lg me-3">Ota yhteyttä</a>
+                            <a href="#policies" class="btn btn-outline-light btn-lg">Lue lisää</a>
                         </div>
                     </div>
 
-                    <!-- Enhanced scroll indicator -->
+                    <!-- Scroll indicator -->
                     <div class="scroll-indicator">
-                        <div class="mouse animate-bounce">
+                        <div class="mouse">
                             <div class="wheel"></div>
                         </div>
                         <div class="arrow">
@@ -83,187 +91,211 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="about" class="section about">
-            <div class="container">
-                <div class="section-inner">
-                    <h2 class="section-title" data-aos="fade-down" data-aos-duration="800" data-aos-delay="100">Tietoa Minusta</h2>
-                    <div class="about-content">
-                        <div class="row">
-                            <div class="col-md-4 about-image" data-aos="fade-right" data-aos-delay="200">
-                                <img src="images/photo.jpg" alt="About Anzhelika">
-                            </div>
-                            <div class="col-md-8 about-text" data-aos="fade-left" data-aos-delay="300">
-                                <p>Olen <span class="highlight">Ansku</span>, ja olen <span class="highlight">ehdokkaana kuntavaaleissa</span>, koska haluan <span class="highlight">vaikuttaa paikallisesti</span> yhteisömme <span class="highlight">hyvinvointiin</span> ja <span class="highlight">tulevaisuuteen</span>. Työskentelen <span class="highlight">päiväkodissa</span>, mikä on antanut minulle arvokasta kokemusta <span class="highlight">varhaiskasvatuksen</span> merkityksestä sekä perheiden ja lasten arjesta. Haluan rakentaa kunnastamme paikan, jossa jokaisella on mahdollisuus <span class="highlight">hyvään elämään</span>, <span class="highlight">laadukkaisiin palveluihin</span> ja <span class="highlight">turvalliseen ympäristöön</span>.</p>
-
-                                <p>Lähden ehdolle, koska uskon, että päätöksenteon tulee perustua <span class="highlight">vastuullisuuteen</span>, <span class="highlight">pitkäjänteisyyteen</span> ja <span class="highlight">asukkaiden kuulemiseen</span>. Kunnan <span class="highlight">talouden</span> on oltava <span class="highlight">kestävällä pohjalla</span>, jotta voimme turvata <span class="highlight">laadukkaat peruspalvelut</span>, kuten koulut, varhaiskasvatuksen, sosiaali- ja terveyspalvelut sekä toimivan infrastruktuurin. Haluan tehdä töitä sen eteen, että päätöksenteossa otetaan huomioon niin lapset, nuoret, työikäiset kuin ikäihmisetkin.</p>
-
-                                <p>Minulle tärkeitä <span class="highlight">vaaliteemoja</span> ovat:</p>
-
-                                <div class="row mt-4">
-                                    <div class="col-md-6 mb-3" data-aos="zoom-in" data-aos-delay="400">
-                                        <div class="theme-card" data-aos="flip-left" data-aos-duration="800" data-aos-delay="100">
-                                            <p><span class="highlight-title">Laadukas ja turvallinen varhaiskasvatus ja koulutus:</span> Jokaisella lapsella on oikeus hyvään, turvalliseen oppimisympäristöön ja riittävään tukeen varhaisessa vaiheessa. Opetuksen on oltava korkeatasoista ja resursseja on kohdistettava niin, että opettajat ja kasvattajat voivat toteuttaa työnsä parhaalla mahdollisella tavalla.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3" data-aos="zoom-in" data-aos-delay="500">
-                                        <div class="theme-card" data-aos="flip-up" data-aos-duration="800" data-aos-delay="200">
-                                            <p><span class="highlight-title">Vastuullinen taloudenpito:</span> Kunnan talous on pidettävä kunnossa, jotta voimme tarjota laadukkaita palveluita ilman ylivelkaantumista.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3" data-aos="zoom-in" data-aos-delay="600">
-                                        <div class="theme-card" data-aos="flip-right" data-aos-duration="800" data-aos-delay="300">
-                                            <p><span class="highlight-title">Turvallinen ja viihtyisä asuinympäristö:</span> Kunta, jossa on toimiva infrastruktuuri, hyvät liikenneyhteydet ja turvalliset lähiöt, on kaikkien etu.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3" data-aos="zoom-in" data-aos-delay="700">
-                                        <div class="theme-card">
-                                            <p><span class="highlight-title">Ympäristöystävällinen päätöksenteko:</span> Luonnon monimuotoisuuden säilyttäminen ja kestävät ratkaisut ovat avainasemassa tulevaisuuden hyvinvoinnin turvaamisessa.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <p data-aos="fade-up" data-aos-delay="800">Haluan olla mukana <span class="highlight">kehittämässä kuntaamme</span> yhdessä asukkaiden kanssa. <span class="highlight">Kuuntelen ja välitän</span> – tehdään yhdessä parempi tulevaisuus!</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Personal background section -->
-                    <div class="about-content" data-aos="fade-up" data-aos-delay="700">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="about-text">
-                                    <h3 class="highlight-title">Taustani lyhyesti</h3>
-                                    <p>Olen koulutukseltani kauppatieteiden maisteri, ja minulla on vahva tausta kansainvälisen liiketoiminnan ja johtamisen parissa. Viime vuosina olen keskittynyt poliittiseen toimintaan kuntatasolla ja pyrkinyt edistämään Kirkkonummen kehitystä. Jos haluat tietää lisää saavutuksistani ja kokemuksestani, tutustu Saavutukset-osioon.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="policies" class="section policies">
-            <div class="container">
-                <div class="section-inner">
-                    <h2 class="section-title" data-aos="fade-down" data-aos-duration="800" data-aos-delay="100">Politiikka</h2>
-                    <div class="policy-grid">
-                        <div class="policy-card animate-hover" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="100">
-                            <div class="icon"><i class="fas fa-building"></i></div>
-                            <h3>Talous</h3>
-                            <p>Vahva talous on hyvinvoivan yhteiskunnan perusta. Edistän vastuullista talouspolitiikkaa.</p>
-                        </div>
-                        <div class="policy-card animate-hover" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="200">
-                            <div class="icon"><i class="fas fa-graduation-cap"></i></div>
-                            <h3>Koulutus</h3>
-                            <p>Laadukas koulutus kaikille on avain Suomen menestykseen myös tulevaisuudessa.</p>
-                        </div>
-                        <div class="policy-card animate-hover" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="300">
-                            <div class="icon"><i class="fas fa-heartbeat"></i></div>
-                            <h3>Terveys</h3>
-                            <p>Jokaisen suomalaisen tulee saada laadukasta terveydenhuoltoa kohtuullisessa ajassa.</p>
-                        </div>
-                        <div class="policy-card animate-hover" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="400">
-                            <div class="icon"><i class="fas fa-leaf"></i></div>
-                            <h3>Ympäristö</h3>
-                            <p>Kestävä kehitys ja ilmastonmuutoksen torjunta ovat välttämättömiä tulevaisuudellemme.</p>
-                        </div>
-                        <div class="policy-card animate-hover" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="500">
-                            <div class="icon"><i class="fas fa-child"></i></div>
-                            <h3>Varhaiskasvatus</h3>
-                            <p>Laadukas ja turvallinen varhaiskasvatus on jokaisen lapsen oikeus ja yhteiskuntamme tulevaisuuden perusta.</p>
-                        </div>
-                        <div class="policy-card animate-hover" data-aos="zoom-in-up" data-aos-duration="700" data-aos-delay="600">
-                            <div class="icon"><i class="fas fa-home"></i></div>
-                            <h3>Asuminen</h3>
-                            <p>Turvallinen ja viihtyisä asuinympäristö, jossa on toimiva infrastruktuuri ja hyvät liikenneyhteydet.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="achievements" class="section achievements">
-            <div class="container">
-                <div class="section-inner">
-                    <h2 class="section-title" data-aos="fade-up" data-aos-delay="200">Saavutukset</h2>
-                    <div class="timeline" data-aos="fade-up" data-aos-duration="1000">
-                        <div class="timeline-item left" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
-                            <div class="timeline-content">
-                                <h3>Koulutus</h3>
-                                <span class="date">2010 - 2015</span>
-                                <p>Valmistuin Aalto-yliopistosta kauppatieteiden maisteriksi. Erikoistuin kansainväliseen liiketoimintaan ja johtamiseen.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item right" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
-                            <div class="timeline-content">
-                                <h3>Työura</h3>
-                                <span class="date">2015 - 2020</span>
-                                <p>Työskentelin kansainvälisessä konsulttiyrityksessä johtotehtävissä ja kehitin liiketoimintastrategioita lukuisille yrityksille.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item left" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">
-                            <div class="timeline-content">
-                                <h3>Politiikkaan</h3>
-                                <span class="date">2020 - nykyhetki</span>
-                                <p>Liityin Kokoomukseen ja olen toiminut aktiivisesti kunnanvaltuustossa edistämässä Kirkkonummen kehitystä.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item right" data-aos="fade-left" data-aos-duration="800" data-aos-delay="400">
-                            <div class="timeline-content">
-                                <h3>Tulevaisuus</h3>
-                                <span class="date">2023 - eteenpäin</span>
-                                <p>Tavoitteenani on vaikuttaa kansallisella tasolla ja edistää Suomen kilpailukykyä ja hyvinvointia.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section contact">
-            <div class="container">
-                <div class="section-inner">
-                    <h2 class="section-title" data-aos="fade-up">Ota yhteyttä</h2>
-                    <div class="contact-content centered-contact">
-                        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                            <div class="col-md-4 col-sm-6 mb-4">
-                                <div class="info-item animate-hover">
-                                    <div class="icon"><i class="fas fa-envelope"></i></div>
-                                    <p class="protected-email">Email osoite on suojattu boteilta</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mb-4">
-                                <div class="info-item animate-hover">
-                                    <div class="icon"><i class="fas fa-phone"></i></div>
-                                    <p class="protected-phone">Puhelinnumero on suojattu boteilta</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 mb-4">
-                                <div class="info-item animate-hover">
-                                    <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
-                                    <p>Kirkkonummi, Suomi</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="main-footer">
+    <!-- About Section -->
+    <section id="about" class="py-5">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <img src="images/logo.svg" alt="Kokoomus">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title" data-aos="fade-down">Tietoa Minusta</h2>
                 </div>
-                <div class="footer-nav">
-                    <ul>
+            </div>
+            <div class="about-content" data-aos="fade-up">
+                <div class="row align-items-center">
+                    <div class="col-md-4 mb-4 mb-md-0" data-aos="fade-right">
+                        <div class="about-image">
+                            <img src="images/photo.jpg" alt="About Anzhelika" class="img-fluid rounded">
+                        </div>
+                    </div>
+                    <div class="col-md-8" data-aos="fade-left">
+                        <div class="about-text">
+                            <p>Olen <span class="highlight">Ansku</span>, ja olen <span class="highlight">ehdokkaana kuntavaaleissa</span>, koska haluan <span class="highlight">vaikuttaa paikallisesti</span> yhteisömme <span class="highlight">hyvinvointiin</span> ja <span class="highlight">tulevaisuuteen</span>. Työskentelen <span class="highlight">päiväkodissa</span>, mikä on antanut minulle arvokasta kokemusta <span class="highlight">varhaiskasvatuksen</span> merkityksestä sekä perheiden ja lasten arjesta. Haluan rakentaa kunnastamme paikan, jossa jokaisella on mahdollisuus <span class="highlight">hyvään elämään</span>, <span class="highlight">laadukkaisiin palveluihin</span> ja <span class="highlight">turvalliseen ympäristöön</span>.</p>
+
+                            <p>Lähden ehdolle, koska uskon, että päätöksenteon tulee perustua <span class="highlight">vastuullisuuteen</span>, <span class="highlight">pitkäjänteisyyteen</span> ja <span class="highlight">asukkaiden kuulemiseen</span>. Kunnan <span class="highlight">talouden</span> on oltava <span class="highlight">kestävällä pohjalla</span>, jotta voimme turvata <span class="highlight">laadukkaat peruspalvelut</span>, kuten koulut, varhaiskasvatuksen, sosiaali- ja terveyspalvelut sekä toimivan infrastruktuurin. Haluan tehdä töitä sen eteen, että päätöksenteossa otetaan huomioon niin lapset, nuoret, työikäiset kuin ikäihmisetkin.</p>
+
+                            <p>Minulle tärkeitä <span class="highlight">vaaliteemoja</span> ovat:</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row my-4">
+                    <div class="col-md-6 mb-4" data-aos="flip-left">
+                        <div class="theme-card">
+                            <p><span class="highlight-title">Laadukas ja turvallinen varhaiskasvatus ja koulutus:</span> Jokaisella lapsella on oikeus hyvään, turvalliseen oppimisympäristöön ja riittävään tukeen varhaisessa vaiheessa. Opetuksen on oltava korkeatasoista ja resursseja on kohdistettava niin, että opettajat ja kasvattajat voivat toteuttaa työnsä parhaalla mahdollisella tavalla.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4" data-aos="flip-up">
+                        <div class="theme-card">
+                            <p><span class="highlight-title">Vastuullinen taloudenpito:</span> Kunnan talous on pidettävä kunnossa, jotta voimme tarjota laadukkaita palveluita ilman ylivelkaantumista.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4" data-aos="flip-right">
+                        <div class="theme-card">
+                            <p><span class="highlight-title">Turvallinen ja viihtyisä asuinympäristö:</span> Kunta, jossa on toimiva infrastruktuuri, hyvät liikenneyhteydet ja turvalliset lähiöt, on kaikkien etu.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4" data-aos="flip-left">
+                        <div class="theme-card">
+                            <p><span class="highlight-title">Ympäristöystävällinen päätöksenteko:</span> Luonnon monimuotoisuuden säilyttäminen ja kestävät ratkaisut ovat avainasemassa tulevaisuuden hyvinvoinnin turvaamisessa.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12" data-aos="fade-up">
+                        <div class="about-text">
+                            <p>Haluan olla mukana <span class="highlight">kehittämässä kuntaamme</span> yhdessä asukkaiden kanssa. <span class="highlight">Kuuntelen ja välitän</span> – tehdään yhdessä parempi tulevaisuus!</p>
+
+                            <h3 class="highlight-title mt-5">Taustani lyhyesti</h3>
+                            <p>Olen koulutukseltani kauppatieteiden maisteri, ja minulla on vahva tausta kansainvälisen liiketoiminnan ja johtamisen parissa. Viime vuosina olen keskittynyt poliittiseen toimintaan kuntatasolla ja pyrkinyt edistämään Kirkkonummen kehitystä. Jos haluat tietää lisää saavutuksistani ja kokemuksestani, tutustu Saavutukset-osioon.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policies Section -->
+    <section id="policies" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title" data-aos="fade-down">Politiikka</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in-up">
+                    <div class="policy-card">
+                        <div class="icon"><i class="fas fa-building"></i></div>
+                        <h3>Talous</h3>
+                        <p>Vahva talous on hyvinvoivan yhteiskunnan perusta. Edistän vastuullista talouspolitiikkaa.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in-up">
+                    <div class="policy-card">
+                        <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3>Koulutus</h3>
+                        <p>Laadukas koulutus kaikille on avain Suomen menestykseen myös tulevaisuudessa.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in-up">
+                    <div class="policy-card">
+                        <div class="icon"><i class="fas fa-heartbeat"></i></div>
+                        <h3>Terveys</h3>
+                        <p>Jokaisen suomalaisen tulee saada laadukasta terveydenhuoltoa kohtuullisessa ajassa.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in-up">
+                    <div class="policy-card">
+                        <div class="icon"><i class="fas fa-leaf"></i></div>
+                        <h3>Ympäristö</h3>
+                        <p>Kestävä kehitys ja ilmastonmuutoksen torjunta ovat välttämättömiä tulevaisuudellemme.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in-up">
+                    <div class="policy-card">
+                        <div class="icon"><i class="fas fa-child"></i></div>
+                        <h3>Varhaiskasvatus</h3>
+                        <p>Laadukas ja turvallinen varhaiskasvatus on jokaisen lapsen oikeus ja yhteiskuntamme tulevaisuuden perusta.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="zoom-in-up">
+                    <div class="policy-card">
+                        <div class="icon"><i class="fas fa-home"></i></div>
+                        <h3>Asuminen</h3>
+                        <p>Turvallinen ja viihtyisä asuinympäristö, jossa on toimiva infrastruktuuri ja hyvät liikenneyhteydet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title" data-aos="fade-down">Saavutukset</h2>
+                </div>
+            </div>
+            <div class="timeline" data-aos="fade-up">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Koulutus</h3>
+                        <span class="date">2010 - 2015</span>
+                        <p>Valmistuin Aalto-yliopistosta kauppatieteiden maisteriksi. Erikoistuin kansainväliseen liiketoimintaan ja johtamiseen.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Työura</h3>
+                        <span class="date">2015 - 2020</span>
+                        <p>Työskentelin kansainvälisessä konsulttiyrityksessä johtotehtävissä ja kehitin liiketoimintastrategioita lukuisille yrityksille.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Politiikkaan</h3>
+                        <span class="date">2020 - nykyhetki</span>
+                        <p>Liityin Kokoomukseen ja olen toiminut aktiivisesti kunnanvaltuustossa edistämässä Kirkkonummen kehitystä.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Tulevaisuus</h3>
+                        <span class="date">2023 - eteenpäin</span>
+                        <p>Tavoitteenani on vaikuttaa kansallisella tasolla ja edistää Suomen kilpailukykyä ja hyvinvointia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title" data-aos="fade-down">Ota yhteyttä</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center" data-aos="fade-up">
+                <div class="col-md-4 mb-4">
+                    <div class="info-item">
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
+                        <p class="protected-email">Sähköposti on suojattu - nähdäksesi klikkaa tätä</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="info-item">
+                        <div class="icon"><i class="fas fa-phone"></i></div>
+                        <p class="protected-phone">Puhelinnumero on suojattu - nähdäksesi klikkaa tätä</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="info-item">
+                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <p>Kirkkonummi, Suomi</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-12 text-center text-lg-start mb-4 mb-lg-0">
+                    <img src="images/logo.svg" alt="Kokoomus" class="footer-logo mb-3">
+                </div>
+                <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                    <ul class="footer-nav">
                         <li><a href="#home">Koti</a></li>
                         <li><a href="#about">Tietoa</a></li>
                         <li><a href="#policies">Politiikka</a></li>
@@ -271,17 +303,19 @@
                         <li><a href="#contact">Yhteystiedot</a></li>
                     </ul>
                 </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 Anzhelika Korobeynyk. Kaikki oikeudet pidätetään.</p>
-                <p class="portfolio-credit">Sivuston toteutti <a href="https://www.linkedin.com/in/arturko" target="_blank">Artur Korobeynyk</a></p>
+                <div class="col-lg-4 col-md-12 text-center text-lg-end">
+                    <p class="copyright mb-0">&copy; 2025 Anzhelika Korobeynyk. Kaikki oikeudet pidätetään.</p>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Script files -->
-    <script src="js/script.js"></script>
+    <!-- Scroll to top button -->
+    <button id="scrollToTop" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
+    <!-- Script files -->
     <!-- Bootstrap JS -->
     <script src="js/libs/bootstrap.min.js"></script>
 
@@ -293,5 +327,8 @@
 
     <!-- AOS - Animate On Scroll -->
     <script src="js/libs/aos.min.js"></script>
+
+    <!-- Custom Script -->
+    <script src="js/script.js"></script>
 </body>
 </html>
