@@ -218,8 +218,39 @@ section {
     align-items: center;
     position: relative;
     color: white;
-    background: linear-gradient(135deg, rgba(0, 61, 165, 0.9), rgba(0, 32, 90, 0.95));
+    background: linear-gradient(135deg, rgba(0, 61, 165, 0.85), rgba(0, 32, 90, 0.9));
     overflow: hidden;
+}
+
+/* Hide hero elements by default to prevent flash before JS loads */
+.hero-content h1,
+.hero-content h2,
+.hero-content .intro,
+.hero-content .cta-buttons,
+.badge-kokoomus,
+.scroll-indicator {
+    opacity: 0;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../../images/photo.jpg') center/cover no-repeat;
+    z-index: -2;
+    opacity: 0;
+    transform-origin: center center;
+    will-change: transform;
+    overflow: hidden;
+    transition: opacity 2s ease-in-out;
+    box-shadow: inset 0 0 100px rgba(0, 32, 90, 0.3);
+    filter: contrast(1.1);
+}
+
+.hero-background.loaded {
+    opacity: 1.0;
 }
 
 .hero-section::before {
@@ -229,8 +260,8 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('../../images/photo.jpg') center/cover no-repeat;
-    opacity: 0.15;
+    background-color: rgba(0, 32, 90, 0.3);
+    opacity: 0.4;
     z-index: -1;
 }
 
@@ -1069,4 +1100,55 @@ section {
     .copyright {
         margin-top: 1rem;
     }
+}
+
+/* Light Ray and Particle Effects for Hero Background */
+.color-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    mix-blend-mode: soft-light;
+}
+
+.light-rays-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.light-ray {
+    position: absolute;
+    height: 200%;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+    transform-origin: top left;
+    will-change: transform, opacity;
+    opacity: 0;
+}
+
+.particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform, opacity;
+    filter: blur(1px);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
