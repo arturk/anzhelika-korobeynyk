@@ -750,11 +750,35 @@ section {
 .protected-phone {
     cursor: pointer;
     transition: color var(--transition-fast) ease;
+    position: relative;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: rgba(0, 61, 165, 0.05);
+    display: inline-block;
 }
 
 .protected-email:hover,
 .protected-phone:hover {
     color: var(--kokoomus-blue);
+    background-color: rgba(0, 61, 165, 0.1);
+}
+
+.protected-email[data-protected="true"]::before,
+.protected-phone[data-protected="true"]::before {
+    content: "\f023";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 8px;
+    color: var(--kokoomus-blue);
+}
+
+.protected-email[data-protected="false"]::before,
+.protected-phone[data-protected="false"]::before {
+    content: "\f13e";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 8px;
+    color: var(--kokoomus-gold);
 }
 
 /* Footer */

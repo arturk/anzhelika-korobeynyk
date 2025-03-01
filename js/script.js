@@ -659,42 +659,83 @@ function animateHeroWithModernStyle() {
  * Initialize protected content (email/phone)
  */
 function initProtectedContent() {
-    // Email protection using character manipulation to prevent simple scraping
+    // Email protection using advanced obfuscation techniques
     const protectedEmail = document.querySelector('.protected-email');
     if (protectedEmail) {
-        // Email components stored separately to prevent easy scraping
-        const emailUser = 'angellmoon1992';
-        const emailDomain = 'gmail.com';
+        // Store email parts in reversed and encoded format
+        const encodedParts = [
+            '2991', // reversed year
+            'noom', // reversed username part
+            'llegna', // reversed username part
+            'moc.', // reversed domain part
+            'liamg' // reversed domain part
+        ];
 
-        // Set the text content as normal for users with JavaScript
-        protectedEmail.textContent = emailUser + '@' + emailDomain;
+        // Set initial state
+        protectedEmail.textContent = 'Sähköposti on suojattu - nähdäksesi klikkaa tätä';
+        protectedEmail.setAttribute('data-protected', 'true');
 
-        // Create a proper mailto link when clicked
+        // Decode email only when needed
         protectedEmail.addEventListener('click', function() {
-            window.location.href = 'mailto:' + emailUser + '@' + emailDomain;
+            if (protectedEmail.getAttribute('data-protected') === 'true') {
+                // Decode and assemble email components with a short delay
+                setTimeout(() => {
+                    // Reverse and combine components to form the actual email
+                    const emailUser = (encodedParts[2] + encodedParts[1]).split('').reverse().join('');
+                    const emailDomain = (encodedParts[4] + encodedParts[3]).split('').reverse().join('');
+
+                    // Display the email on screen
+                    protectedEmail.textContent = emailUser + '@' + emailDomain;
+                    protectedEmail.setAttribute('data-protected', 'false');
+
+                    // Make it clickable only after revealing
+                    protectedEmail.addEventListener('click', function() {
+                        window.location.href = 'mailto:' + emailUser + '@' + emailDomain;
+                    }, { once: true });
+                }, 100);
+            }
         });
 
         // Add a tooltip to indicate it's clickable
-        protectedEmail.title = 'Click to send an email';
+        protectedEmail.title = 'Click to reveal and send an email';
     }
 
     // Phone protection using similar technique
     const protectedPhone = document.querySelector('.protected-phone');
     if (protectedPhone) {
-        // Phone components stored separately
-        const phonePrefix = '044';
-        const phoneSuffix = '3219126';
+        // Store phone parts in encoded format using ASCII character codes
+        const encodedPhone = [
+            String.fromCharCode(48, 52, 52), // "044" encoded
+            String.fromCharCode(51, 50, 49), // "321"
+            String.fromCharCode(57, 49, 50, 54) // "9126"
+        ];
 
-        // Set the text content by combining components
-        protectedPhone.textContent = phonePrefix + phoneSuffix;
+        // Set initial state
+        protectedPhone.textContent = 'Puhelinnumero on suojattu - nähdäksesi klikkaa tätä';
+        protectedPhone.setAttribute('data-protected', 'true');
 
-        // Create proper tel link when clicked
+        // Decode phone only when needed
         protectedPhone.addEventListener('click', function() {
-            window.location.href = 'tel:' + phonePrefix + phoneSuffix;
+            if (protectedPhone.getAttribute('data-protected') === 'true') {
+                // Decode and assemble phone with a short delay
+                setTimeout(() => {
+                    // Assemble phone number
+                    const phoneNumber = encodedPhone[0] + encodedPhone[1] + encodedPhone[2];
+
+                    // Display the phone number on screen
+                    protectedPhone.textContent = phoneNumber;
+                    protectedPhone.setAttribute('data-protected', 'false');
+
+                    // Make it clickable only after revealing
+                    protectedPhone.addEventListener('click', function() {
+                        window.location.href = 'tel:' + phoneNumber;
+                    }, { once: true });
+                }, 100);
+            }
         });
 
         // Add a tooltip to indicate it's clickable
-        protectedPhone.title = 'Click to call';
+        protectedPhone.title = 'Click to reveal and call';
     }
 }
 
