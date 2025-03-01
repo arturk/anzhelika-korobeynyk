@@ -1048,6 +1048,32 @@ section {
         font-size: 0.9rem;
     }
 
+    /* Fix timeline alignment on small mobile screens */
+    .timeline::before {
+        left: 20px; /* Adjust the vertical line position */
+    }
+
+    .timeline-item {
+        padding-left: 50px; /* Reduce left padding */
+        padding-right: 10px; /* Reduce right padding */
+    }
+
+    .timeline-item::after {
+        left: 10px; /* Adjust the circle position to align with line */
+        width: 16px; /* Make circles slightly smaller */
+        height: 16px; /* Make circles slightly smaller */
+    }
+
+    .timeline-item.left::after {
+        left: 10px; /* Ensure left items' circles align with the timeline */
+    }
+
+    .timeline-item.left .timeline-content::before,
+    .timeline-item.right .timeline-content::before {
+        left: -15px; /* Adjust the arrow position */
+        border-width: 8px; /* Make arrows slightly smaller */
+    }
+
     .about-content,
     .theme-card,
     .policy-card,
