@@ -704,10 +704,7 @@ function initProtectedContent() {
  * when they leave the viewport at the bottom of the screen
  */
 function addDissolveEffects() {
-    // CHANGE: Use an opt-in approach where only elements with the 'dissolve-enabled' class
-    // will receive the dissolve effect. This gives more control over which elements should dissolve.
-
-    // First, apply the class to elements that traditionally had the effect
+    // Apply the class to elements that should have the effect
     document.querySelectorAll('.policy-card, .timeline-item, .info-item, .section-title:not(#about .section-title)')
         .forEach(el => {
             // Don't add the class to any elements in the About section
@@ -716,128 +713,41 @@ function addDissolveEffects() {
             }
         });
 
-    // Now, only select elements that explicitly have the dissolve-enabled class
+    // Only select elements with the dissolve-enabled class
     const sections = document.querySelectorAll('.dissolve-enabled');
 
     sections.forEach(section => {
-        // Skip elements that don't exist in the DOM anymore or have no dimensions
+        // Skip elements with no dimensions
         if (!section.getBoundingClientRect().width) return;
 
-        // Create ScrollTrigger for leave animation
+        // Create ScrollTrigger for when scrolling up
         ScrollTrigger.create({
             trigger: section,
             start: "top+=50% bottom",
             end: "bottom-=100 bottom",
             onLeaveBack: (self) => {
-                // Get element position relative to the viewport
-                const viewportPosition = ScrollTrigger.positionInViewport(section, "bottom");
-
-                // Start dissolve effect when about 70% of the element has passed below the viewport
-                // and we're scrolling up (negative velocity)
-                if (self.getVelocity() < -5 && viewportPosition > 0.7) {
-                    // Make sure the element is visible before dissolving it
+                // Only dissolve when scrolling up and element is mostly out of view
+                if (self.getVelocity() < -5) {
+                    // Only dissolve if visible
                     if (window.getComputedStyle(section).opacity > 0.2) {
                         createDissolveEffect(section);
                     }
                 }
             },
             onEnter: () => {
-                // Only make the element visible if we're scrolling down into view
-                // If the element is dissolving or already dissolved (opacity near 0), make it visible
-                const opacity = parseFloat(window.getComputedStyle(section).opacity);
-                if (opacity < 0.9 || section.classList.contains('dissolving')) {
-                    // Force cancel any ongoing dissolve effect
+                // Make visible when scrolling down into view
+                if (section.classList.contains('dissolving') ||
+                    parseFloat(window.getComputedStyle(section).opacity) < 0.9) {
                     cancelDissolveEffect(section);
-
-                    // Set up a periodic check to make sure the element becomes visible
-                    let visibilityChecks = 0;
-                    const ensureVisible = () => {
-                        visibilityChecks++;
-
-                        // If element is not visible after 5 attempts (with increasing force), give up
-                        if (visibilityChecks > 5) return;
-
-                        // Check if element is actually visible
-                        const opacity = parseFloat(window.getComputedStyle(section).opacity);
-                        if (opacity < 0.9) {
-                            // Force visibility again with increasing urgency
-                            cancelDissolveEffect(section);
-
-                            // Reset AOS manually if needed
-                            if (section.hasAttribute('data-aos') && typeof AOS !== 'undefined') {
-                                section.classList.remove('aos-animate');
-                                AOS.refresh();
-                            }
-
-                            // Check again in a moment
-                            setTimeout(ensureVisible, 100 * visibilityChecks);
-                        }
-                    };
-
-                    // Start checking for visibility
-                    setTimeout(ensureVisible, 50);
-                }
-            },
-            markers: false // Set to true for debugging
-        });
-
-        // Add a second trigger that works when scrolling up at a slower pace
-        ScrollTrigger.create({
-            trigger: section,
-            start: "center bottom+=100",
-            end: "bottom-=50 bottom",
-            onEnterBack: (self) => {
-                // Only when part of the element is still below the viewport
-                const viewportPosition = ScrollTrigger.positionInViewport(section, "bottom");
-
-                // Only trigger if element is mostly out of view but starting to enter
-                if (viewportPosition > 0.8 && viewportPosition < 1.2) {
-                    // Don't animate if already dissolving
-                    if (!section.classList.contains('dissolving') &&
-                        window.getComputedStyle(section).opacity > 0.2) {
-                        createDissolveEffect(section);
-                    }
-                }
-            },
-            onEnter: () => {
-                // Only make the element visible if we're scrolling down into view
-                // If the element is dissolving or already dissolved (opacity near 0), make it visible
-                const opacity = parseFloat(window.getComputedStyle(section).opacity);
-                if (opacity < 0.9 || section.classList.contains('dissolving')) {
-                    // Use the same enhanced approach as the first trigger
-                    cancelDissolveEffect(section);
-
-                    // Use the same periodic check pattern to ensure visibility
-                    let visibilityChecks = 0;
-                    const ensureVisible = () => {
-                        visibilityChecks++;
-
-                        if (visibilityChecks > 5) return;
-
-                        const opacity = parseFloat(window.getComputedStyle(section).opacity);
-                        if (opacity < 0.9) {
-                            cancelDissolveEffect(section);
-
-                            if (section.hasAttribute('data-aos') && typeof AOS !== 'undefined') {
-                                section.classList.remove('aos-animate');
-                                AOS.refresh();
-                            }
-
-                            setTimeout(ensureVisible, 100 * visibilityChecks);
-                        }
-                    };
-
-                    setTimeout(ensureVisible, 50);
                 }
             },
             markers: false
         });
     });
 
-    // Add specific dissolve effect for scroll indicator
+    // Special case for scroll indicator
     const scrollIndicator = document.querySelector('.scroll-indicator');
     if (scrollIndicator) {
-        // Add the dissolve-enabled class to the scroll indicator as well
         scrollIndicator.classList.add('dissolve-enabled');
 
         ScrollTrigger.create({
@@ -845,24 +755,18 @@ function addDissolveEffects() {
             start: "20% top",
             end: "bottom top",
             onLeave: () => {
-                // Special case for scroll indicator - dissolve when scrolling down past the hero
                 createDissolveEffect(scrollIndicator);
             },
             onEnterBack: () => {
-                // Make the scroll indicator reappear when scrolling back up to the hero section
                 cancelDissolveEffect(scrollIndicator);
-
-                // Force immediate visibility
-                gsap.set(scrollIndicator, {
-                    opacity: 1,
-                    clearProps: "all"
-                });
+                // Force visibility
+                gsap.set(scrollIndicator, { opacity: 1 });
             },
             markers: false
         });
     }
 
-    // Modify the emergency scroll handler to be more selective
+    // Simple scroll handler for fallback
     window.addEventListener('scroll', function() {
         // Throttle to avoid too many checks
         if (this._scrollThrottleTimeout) {
@@ -870,18 +774,16 @@ function addDissolveEffects() {
         }
 
         this._scrollThrottleTimeout = setTimeout(() => {
-            // For each element in our registry that's marked as dissolving
+            // Check for elements that should be visible
             dissolvingElements.forEach((isDissolving, element) => {
-                if (!isDissolving) return; // Skip if not dissolving
+                if (!isDissolving) return;
 
-                // Only make elements visible when scrolling down into view (check direction)
-                // Get scroll direction (positive = down, negative = up)
+                // Get scroll direction
                 const scrollDirection = this._lastScrollPosition ? window.scrollY - this._lastScrollPosition : 0;
                 this._lastScrollPosition = window.scrollY;
 
-                // Only restore element if scrolling down and element is in viewport
+                // Only make visible when scrolling down into view
                 if (scrollDirection > 5 && isElementInViewport(element)) {
-                    // Only make the element visible if it's currently in a dissolving state
                     if (element.classList.contains('dissolving')) {
                         cancelDissolveEffect(element);
                     }
@@ -902,62 +804,51 @@ function addDissolveEffects() {
 
 /**
  * Helper function to cancel any in-progress dissolve animations for an element
- * This is used when scrolling back down to ensure elements reappear correctly
  * @param {HTMLElement} element - The element to cancel dissolve effect for
  */
 function cancelDissolveEffect(element) {
-    // Register that we want this element to be visible again - this is a fail-safe
+    // Mark element as not dissolving
     dissolvingElements.set(element, false);
 
-    // Remove any flash overlay inside the element
+    // Remove any flash overlay
     const flashOverlay = element.querySelector('div[style*="mixBlendMode: overlay"]');
     if (flashOverlay) {
         flashOverlay.remove();
     }
 
-    // Find and remove any particle containers for this element
+    // Find and remove any particle containers
     const elementRect = element.getBoundingClientRect();
     const elementTop = elementRect.top + window.scrollY;
     const elementLeft = elementRect.left;
 
-    // Look for particle containers that match this element's position
     document.querySelectorAll('.dissolve-particles-container').forEach(container => {
         const containerTop = parseInt(container.style.top);
         const containerLeft = parseInt(container.style.left);
 
-        // If container positions are close to the element position, it's likely for this element
         if (Math.abs(containerTop - elementTop) < 50 && Math.abs(containerLeft - elementLeft) < 50) {
-            // Kill any ongoing GSAP animations for this container and its children
+            // Kill animations and remove container
             gsap.killTweensOf(container);
             Array.from(container.children).forEach(child => {
                 gsap.killTweensOf(child);
             });
-
-            // Remove the container
             container.remove();
         }
     });
 
-    // Kill ALL animations on this element
+    // Kill all animations on element
     gsap.killTweensOf(element);
 
-    // Force the element to be visible again - no animation, just direct property setting
+    // Reset element state
     element.classList.remove('dissolving');
     element.style.opacity = '1';
     element.style.visibility = 'visible';
-    element.style.display = '';
     element.style.pointerEvents = '';
 
-    // Clear all transform properties
+    // Clear transforms
     element.style.transform = '';
-    element.style.scale = '';
-    element.style.x = '';
-    element.style.y = '';
-    element.style.rotation = '';
 
-    // Force refresh AOS if needed
+    // Refresh AOS if needed
     if (typeof AOS !== 'undefined' && element.hasAttribute('data-aos')) {
-        // Remove aos-animate class to allow re-animation
         element.classList.remove('aos-animate');
         AOS.refresh();
     }
@@ -971,15 +862,11 @@ function createDissolveEffect(element) {
     // Don't apply effect if it's already dissolving
     if (element.classList.contains('dissolving')) return;
 
-    // Register this element as dissolving in our global registry
+    // Register this element as dissolving
     dissolvingElements.set(element, true);
-
     element.classList.add('dissolving');
 
-    // Store the element's original opacity for restoration later
-    const originalOpacity = window.getComputedStyle(element).opacity;
-
-    // Store the element state for AOS reapplication
+    // Store element state for restoration
     const hasAOS = element.hasAttribute('data-aos');
     const aosValue = hasAOS ? element.getAttribute('data-aos') : null;
     const aosOffset = hasAOS ? element.getAttribute('data-aos-offset') : null;
@@ -1002,23 +889,20 @@ function createDissolveEffect(element) {
     particleContainer.style.height = height + 'px';
     particleContainer.style.pointerEvents = 'none';
     particleContainer.style.zIndex = 999;
-    particleContainer.style.overflow = 'visible';
     document.body.appendChild(particleContainer);
 
-    // Store reference to the original element for cancellation
+    // Store reference to the original element
     particleContainer.dataset.forElementId = element.id || '';
 
-    // Create an explicit link from the element to this container for efficient cleanup
-    element.dataset.dissolveContainerId = Date.now().toString();
-    particleContainer.dataset.containerId = element.dataset.dissolveContainerId;
+    // Disable pointer events on the element while dissolving
+    element.style.pointerEvents = 'none';
 
-    // Get colors from element for more content-aware particles
+    // Get colors from element for particles
     const styles = window.getComputedStyle(element);
     const bgColor = styles.backgroundColor || 'white';
     const textColor = styles.color || 'black';
-    const borderColor = styles.borderColor || bgColor;
 
-    // Get accent color - try to find a kokoomus blue or gold color in the element
+    // Determine accent color
     let accentColor = 'rgba(0, 61, 165, 0.7)'; // Default to kokoomus blue
     if (element.innerHTML.includes('var(--kokoomus-gold)') ||
         element.querySelector('.highlight') ||
@@ -1026,25 +910,45 @@ function createDissolveEffect(element) {
         accentColor = 'rgba(255, 209, 0, 0.8)'; // Use kokoomus gold
     }
 
-    // Increase particle density for more dramatic effect
-    const areaDivider = element.classList.contains('timeline-item') ? 500 : 700; // More particles (smaller divider)
-    const numParticles = Math.max(40, Math.floor((width * height) / areaDivider)); // Min 40 particles
+    // Reduced particle count for better performance
+    const numParticles = Math.min(20, Math.max(10, Math.floor((width * height) / 5000)));
 
-    // Prepare to clone element's content for text particles if it has text content
-    let hasTextContent = false;
-    let textFragments = [];
+    // Create a simple flash effect
+    const flashOverlay = document.createElement('div');
+    flashOverlay.style.position = 'absolute';
+    flashOverlay.style.top = '0';
+    flashOverlay.style.left = '0';
+    flashOverlay.style.width = '100%';
+    flashOverlay.style.height = '100%';
+    flashOverlay.style.background = accentColor;
+    flashOverlay.style.opacity = '0';
+    flashOverlay.style.pointerEvents = 'none';
+    flashOverlay.style.mixBlendMode = 'overlay';
+    element.style.position = 'relative';
+    element.appendChild(flashOverlay);
 
-    // Get text content from the element if it's not an image
-    if (element.tagName !== 'IMG' && element.innerText && element.innerText.trim().length > 0) {
-        hasTextContent = true;
-        // Split text into words
-        textFragments = element.innerText.split(/\s+/).filter(word => word.length > 0);
-    }
+    // Flash animation
+    gsap.to(flashOverlay, {
+        opacity: 0.4,
+        duration: 0.3,
+        ease: "sine.in",
+        onComplete: function() {
+            if (!element.contains(flashOverlay)) return;
 
-    // IMPORTANT: Disable pointer events on the element while dissolving
-    element.style.pointerEvents = 'none';
+            gsap.to(flashOverlay, {
+                opacity: 0,
+                duration: 0.3,
+                ease: "power2.out",
+                onComplete: function() {
+                    if (element.contains(flashOverlay)) {
+                        flashOverlay.remove();
+                    }
+                }
+            });
+        }
+    });
 
-    // Create particle animation sequence with staggered groups for more dramatic effect
+    // Create particle animation
     for (let i = 0; i < numParticles; i++) {
         // Create a particle
         const particle = document.createElement('div');
@@ -1054,247 +958,98 @@ function createDissolveEffect(element) {
         const x = Math.random() * width;
         const y = Math.random() * height;
 
-        // Random size with larger particles for certain elements
-        const baseSize = element.classList.contains('info-item') ? 6 : 4; // Bigger base size
-        const size = baseSize + Math.random() * 10; // Increased max size for more dramatic effect
+        // Random size
+        const size = 3 + Math.random() * 5;
 
-        // Determine particle type - for text elements, occasionally create text particles
-        let isTextParticle = false;
-        if (hasTextContent && Math.random() < 0.2 && textFragments.length > 0) { // More text particles (0.2 vs 0.15)
-            isTextParticle = true;
-            particle.className = 'dissolve-text-particle';
-            particle.textContent = textFragments[Math.floor(Math.random() * textFragments.length)];
-            particle.style.fontSize = (8 + Math.random() * 8) + 'px'; // Larger text particles
-            particle.style.color = textColor;
-            particle.style.fontFamily = styles.fontFamily;
-            particle.style.whiteSpace = 'nowrap';
-            particle.style.opacity = 0.8 + Math.random() * 0.2; // Higher opacity
+        // Determine particle color
+        let particleColor;
+        const colorRand = Math.random();
+        if (colorRand < 0.6) {
+            particleColor = bgColor;
+        } else if (colorRand < 0.9) {
+            particleColor = accentColor;
         } else {
-            // Determine particle color - mix of background, text, and accent colors
-            let particleColor;
-            const colorRand = Math.random();
-            if (colorRand < 0.5) {
-                particleColor = bgColor;
-            } else if (colorRand < 0.8) {
-                particleColor = accentColor;
-            } else {
-                particleColor = textColor;
-            }
-
-            // Set styles for regular particle
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-            particle.style.borderRadius = Math.random() > 0.3 ? '50%' : (Math.random() > 0.5 ? '30%' : '5px');
-            particle.style.backgroundColor = particleColor;
-            particle.style.opacity = 0.8 + Math.random() * 0.2; // Higher opacity
-
-            // Add glow effect for certain particles
-            if (Math.random() > 0.4) { // More particles with glow
-                const glowSize = Math.random() * 10 + 5; // Larger glow
-                particle.style.boxShadow = `0 0 ${glowSize}px ${accentColor}`;
-                particle.style.filter = `blur(${Math.random() * 3}px)`; // More blur
-            }
+            particleColor = textColor;
         }
 
-        // Common styles for all particles
+        // Set styles for particle
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.borderRadius = Math.random() > 0.3 ? '50%' : '3px';
+        particle.style.backgroundColor = particleColor;
+        particle.style.opacity = 0.7 + Math.random() * 0.3;
         particle.style.position = 'absolute';
         particle.style.left = x + 'px';
         particle.style.top = y + 'px';
-        particle.style.transformOrigin = 'center center';
 
         // Add to container
         particleContainer.appendChild(particle);
 
-        // Create more dynamic animation paths - wilder movement
-        const randomAngle = Math.random() * Math.PI * 2; // Random angle in radians
-        const randomDistance = 120 + Math.random() * 250; // Increased distance for more spread
-        const targetX = Math.cos(randomAngle) * randomDistance;
-        const targetY = Math.sin(randomAngle) * randomDistance + 80; // Bias slightly more downward
+        // Simple random movement
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 50 + Math.random() * 100;
+        const targetX = Math.cos(angle) * distance;
+        const targetY = Math.sin(angle) * distance;
 
-        // Create stagger groups for more coordinated dissolution
-        const group = Math.floor(i / (numParticles / 5)); // Create 5 stagger groups
-        const staggerDelay = group * 60 + Math.random() * 180; // More staggered delays (60ms per group + up to 180ms random)
+        // Stagger start time
+        const delay = Math.random() * 0.2;
 
-        // Use fancier animation for larger particles
-        const isLargeParticle = size > 10;
-
-        // Stagger the animations slightly
-        setTimeout(() => {
-            // Regularly check if we should abort this animation (scrolled back in)
-            if (!dissolvingElements.get(element)) {
-                // If element is marked as not dissolving anymore, abandon the animation
-                return;
+        // Animate particle
+        gsap.to(particle, {
+            x: targetX,
+            y: targetY,
+            opacity: 0,
+            scale: Math.random() > 0.5 ? 0.5 : 1.5,
+            duration: 0.8 + Math.random() * 0.4,
+            delay: delay,
+            ease: "power2.out",
+            onComplete: function() {
+                if (particleContainer.contains(particle)) {
+                    particle.remove();
+                }
+                if (particleContainer.children.length <= 1) {
+                    particleContainer.remove();
+                }
             }
-
-            // Only proceed if the particle container is still in the document
-            if (document.body.contains(particleContainer) && particleContainer.contains(particle)) {
-                // Add quick "pop" scale before flying away
-                gsap.to(particle, {
-                    scale: 1.4 + (Math.random() * 0.6), // More dramatic scaling
-                    duration: 0.3, // Longer pop animation
-                    ease: "power1.out",
-                    onComplete: function() {
-                        // Check again if we should continue
-                        if (!dissolvingElements.get(element)) return;
-
-                        // Only continue if the particle is still in the document
-                        if (document.body.contains(particleContainer) && particleContainer.contains(particle)) {
-                            // Now animate the flying away part
-                            gsap.to(particle, {
-                                x: targetX,
-                                y: targetY,
-                                opacity: 0,
-                                scale: isLargeParticle ? (Math.random() * 0.5) : (Math.random() * 3),
-                                rotation: (Math.random() - 0.5) * 540, // More rotation (540 vs 360)
-                                duration: 1.2 + Math.random() * 1.8, // Slower animation (1.2-3s vs 0.8-2.2s)
-                                ease: "power2.out",
-                                onComplete: function() {
-                                    // Only attempt to remove if it exists
-                                    if (document.body.contains(particleContainer)) {
-                                        if (particleContainer.children.length <= 1) {
-                                            // Remove the container when all particles are done
-                                            particleContainer.remove();
-                                        }
-                                        if (particleContainer.contains(particle)) {
-                                            particle.remove();
-                                        }
-                                    }
-                                }
-                            });
-                        }
-                    }
-                });
-            }
-        }, staggerDelay); // Stagger start time
+        });
     }
 
-    // Enhanced visual flash effect with element's accent color
-    const flashOverlay = document.createElement('div');
-    flashOverlay.style.position = 'absolute';
-    flashOverlay.style.top = '0';
-    flashOverlay.style.left = '0';
-    flashOverlay.style.width = '100%';
-    flashOverlay.style.height = '100%';
-
-    // Use a more dynamic gradient for the flash effect
-    const gradientDirection = Math.random() > 0.5 ? 'to right' : 'to bottom';
-    flashOverlay.style.background = `linear-gradient(${gradientDirection}, rgba(255,255,255,0.8), ${accentColor})`;
-    flashOverlay.style.opacity = '0';
-    flashOverlay.style.pointerEvents = 'none';
-    flashOverlay.style.mixBlendMode = 'overlay';
-    element.style.position = 'relative';
-    element.appendChild(flashOverlay);
-
-    // More dramatic flash effect
-    gsap.to(flashOverlay, {
-        opacity: 0.6, // Higher opacity for more visible effect (0.6 vs 0.5)
-        duration: 0.35, // Slower flash (0.35s vs 0.25s)
-        ease: "sine.in",
+    // Fade out the original element
+    gsap.to(element, {
+        opacity: 0,
+        duration: 0.5,
+        delay: 0.1,
+        ease: "power1.out",
         onComplete: function() {
-            // Check if we should continue the effect
-            if (!dissolvingElements.get(element)) {
-                if (element.contains(flashOverlay)) {
-                    flashOverlay.remove();
-                }
-                return;
-            }
+            if (!dissolvingElements.get(element)) return;
 
-            if (element.contains(flashOverlay)) {  // Check if element is still in the document
-                gsap.to(flashOverlay, {
-                    opacity: 0,
-                    duration: 0.5, // Slower fade out (0.5s vs 0.35s)
-                    delay: 0.15, // Longer delay to see the flash (0.15s vs 0.1s)
-                    ease: "power2.out",
-                    onComplete: function() {
-                        // Check again if we should continue
-                        if (!dissolvingElements.get(element)) return;
-
-                        if (element.contains(flashOverlay)) {  // Double-check before manipulating the DOM
-                            flashOverlay.remove();
-
-                            // Fade out the original element
-                            gsap.to(element, {
-                                opacity: 0,
-                                duration: 0.4, // Slower fade out (0.4s vs 0.3s)
-                                ease: "power1.out",
-                                onComplete: function() {
-                                    // Check one last time if we should continue
-                                    if (!dissolvingElements.get(element)) return;
-
-                                    setTimeout(() => {
-                                        // Final check to make sure element should still be dissolving
-                                        if (!dissolvingElements.get(element)) return;
-
-                                        if (!particleContainer || !document.body.contains(particleContainer)) {
-                                            resetElementAfterDissolve();
-                                        } else {
-                                            // Use a more reliable method to reset elements
-                                            // Set a timeout to ensure element is reset after a maximum time
-                                            setTimeout(() => {
-                                                if (dissolvingElements.get(element)) {
-                                                    resetElementAfterDissolve();
-                                                }
-                                            }, 3000); // Longer maximum time (3s vs 2s)
-                                        }
-                                    }, 100);
-                                }
-                            });
-                        }
-                    }
-                });
-            }
+            // Ensure element stays invisible and is properly reset
+            resetElement();
         }
     });
 
-    // Function to reset the element state after dissolve animation
-    function resetElementAfterDissolve() {
-        // Mark element as not dissolving anymore but keep it invisible
+    // Simplified reset function
+    function resetElement() {
+        // Mark as no longer dissolving
         dissolvingElements.set(element, false);
 
-        // Skip if element no longer exists in DOM
         if (!document.body.contains(element)) return;
 
-        // For AOS elements, we need to reapply the AOS attributes
+        // Reset AOS attributes
         if (hasAOS) {
-            // Reset AOS attributes
             element.setAttribute('data-aos', aosValue);
             if (aosOffset) element.setAttribute('data-aos-offset', aosOffset);
             if (aosDelay) element.setAttribute('data-aos-delay', aosDelay);
-
-            // Temporarily remove the AOS-animate class to allow for re-animation
             element.classList.remove('aos-animate');
 
-            // Refresh AOS to recognize these elements again
             if (typeof AOS !== 'undefined') {
                 AOS.refresh();
             }
         }
 
-        // Keep the element invisible but ready to appear when scrolled into view
-        element.style.opacity = '0';  // IMPORTANT: Keep opacity at 0 when reset
+        // Finalize element state
+        element.style.opacity = '0';
         element.classList.remove('dissolving');
-
-        // Re-enable pointer events
         element.style.pointerEvents = '';
-
-        // Clear any inline styles that might have been added during the animation
-        // This allows the element to properly use CSS transitions later
-        const inlineProps = ['transform', 'scale', 'x', 'y', 'rotation', 'filter', 'perspective'];
-        inlineProps.forEach(prop => {
-            element.style[prop] = '';
-        });
-
-        // Remove the container ID reference
-        if (element.dataset.dissolveContainerId) {
-            delete element.dataset.dissolveContainerId;
-        }
-
-        // Set a timeout to ensure AOS is ready when needed
-        setTimeout(() => {
-            if (typeof AOS !== 'undefined' && hasAOS) {
-                // Force AOS to check visibility again
-                AOS.refresh();
-            }
-        }, 100);
     }
 }
