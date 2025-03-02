@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle protected content
     initProtectedContent();
 
+    // Initialize about photo effect
+    initAboutPhotoEffect();
+
     // Handle preloader
     handlePreloader();
 });
@@ -737,6 +740,53 @@ function initProtectedContent() {
         // Add a tooltip to indicate it's clickable
         protectedPhone.title = 'Click to reveal and call';
     }
+}
+
+/**
+ * Add subtle parallax effect to the About section photo
+ */
+function initAboutPhotoEffect() {
+    const aboutImage = document.querySelector('.about-image');
+    const aboutPhoto = document.querySelector('.about-image img');
+
+    if (!aboutImage || !aboutPhoto) return;
+
+    // Add a subtle parallax effect on mouse movement
+    aboutImage.addEventListener('mousemove', function(e) {
+        // Calculate mouse position relative to the container
+        const rect = aboutImage.getBoundingClientRect();
+        const x = e.clientX - rect.left; // x position within the element
+        const y = e.clientY - rect.top;  // y position within the element
+
+        // Calculate percentage position
+        const xPercent = x / rect.width;
+        const yPercent = y / rect.height;
+
+        // Calculate the tilt amount (very subtle - only 2 degrees max)
+        const tiltX = (yPercent - 0.5) * 2; // -1 to 1, multiplied by max tilt
+        const tiltY = (xPercent - 0.5) * -2; // -1 to 1, multiplied by max tilt
+
+        // Apply the transform with a very subtle tilt and shift
+        aboutPhoto.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+
+        // Add a subtle light effect based on mouse position
+        const lightX = xPercent * 100;
+        const lightY = yPercent * 100;
+        aboutImage.style.backgroundImage = `
+            linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+            radial-gradient(circle at ${lightX}% ${lightY}%, rgba(255, 255, 255, 0.15), transparent 80%)
+        `;
+    });
+
+    // Reset on mouse leave
+    aboutImage.addEventListener('mouseleave', function() {
+        aboutPhoto.style.transform = '';
+        aboutImage.style.backgroundImage = `
+            linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px)
+        `;
+    });
 }
 
 /**
