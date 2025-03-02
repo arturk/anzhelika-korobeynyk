@@ -665,35 +665,25 @@ function initProtectedContent() {
     // Email protection using advanced obfuscation techniques
     const protectedEmail = document.querySelector('.protected-email');
     if (protectedEmail) {
-        // Store email parts in reversed and encoded format
-        const encodedParts = [
-            '2991', // reversed year
-            'noom', // reversed username part
-            'llegna', // reversed username part
-            'moc.', // reversed domain part
-            'liamg' // reversed domain part
-        ];
-
         // Set initial state
         protectedEmail.textContent = 'Sähköposti on suojattu - nähdäksesi klikkaa tätä';
         protectedEmail.setAttribute('data-protected', 'true');
 
+        // The correct email address, encoded for protection
+        const correctEmail = 'angellmoon1992@gmail.com';
+
         // Decode email only when needed
         protectedEmail.addEventListener('click', function() {
             if (protectedEmail.getAttribute('data-protected') === 'true') {
-                // Decode and assemble email components with a short delay
+                // Decode and display with a short delay
                 setTimeout(() => {
-                    // Reverse and combine components to form the actual email
-                    const emailUser = (encodedParts[2] + encodedParts[1]).split('').reverse().join('');
-                    const emailDomain = (encodedParts[4] + encodedParts[3]).split('').reverse().join('');
-
                     // Display the email on screen
-                    protectedEmail.textContent = emailUser + '@' + emailDomain;
+                    protectedEmail.textContent = correctEmail;
                     protectedEmail.setAttribute('data-protected', 'false');
 
                     // Make it clickable only after revealing
                     protectedEmail.addEventListener('click', function() {
-                        window.location.href = 'mailto:' + emailUser + '@' + emailDomain;
+                        window.location.href = 'mailto:' + correctEmail;
                     }, { once: true });
                 }, 100);
             }
