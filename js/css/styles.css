@@ -305,15 +305,15 @@ section {
 
 .badge-kokoomus {
     position: absolute;
-    top: -15px;
+    top: -65px;
     right: -130px;
-    width: 80px;
-    height: 80px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     background-color: var(--kokoomus-gold);
     color: var(--kokoomus-dark-blue);
     font-weight: 900;
-    font-size: 2rem;
+    font-size: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
