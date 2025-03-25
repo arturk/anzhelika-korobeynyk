@@ -371,5 +371,73 @@ const translations = {
         'en': '© 2025 Anzhelika Korobeynyk. All rights reserved.',
         'ua': '© 2025 Анжеліка Коробейник. Усі права захищені.',
         'ru': '© 2025 Анжелика Коробейник. Все права защищены.'
+    },
+
+    // Election Information
+    'election-title': {
+        'fi': 'Kunta- ja aluevaalit 2025',
+        'en': 'Municipal and Regional Elections 2025',
+        'ua': 'Муніципальні та регіональні вибори 2025',
+        'ru': 'Муниципальные и региональные выборы 2025'
+    },
+    'election-intro': {
+        'fi': 'Vuoden 2025 kunta- ja aluevaalit järjestetään sunnuntaina 13. huhtikuuta 2025. Äänestämällä vaikutat siihen, ketkä päättävät tärkeistä asioista, jotka vaikuttavat jokapäiväiseen elämääsi seuraavien neljän vuoden ajan.',
+        'en': 'The 2025 municipal and regional elections will take place on Sunday, April 13, 2025. By voting, you influence who will make decisions on important issues affecting your daily life for the next four years.',
+        'ua': 'Муніципальні та регіональні вибори 2025 року відбудуться в неділю, 13 квітня 2025 року. Беручи участь у голосуванні, ви впливаєте на те, хто прийматиме рішення з важливих питань, що впливають на ваше повсякденне життя протягом наступних чотирьох років.',
+        'ru': 'Муниципальные и региональные выборы 2025 года состоятся в воскресенье, 13 апреля 2025 года. Участвуя в голосовании, вы влияете на то, кто будет принимать решения по важным вопросам, затрагивающим повседневную жизнь в течение следующих четырех лет.'
+    },
+    'election-date': {
+        'fi': 'Vaalipäivä: 13. huhtikuuta 2025',
+        'en': 'Election date: April 13, 2025',
+        'ua': 'Дата виборів: 13 квітня 2025 року',
+        'ru': 'Дата выборов: 13 апреля 2025 года'
+    },
+    'election-early-finland': {
+        'fi': 'Ennakkoäänestys Suomessa: 2.-8. huhtikuuta 2025',
+        'en': 'Early voting in Finland: April 2-8, 2025',
+        'ua': 'Дострокове голосування у Фінляндії: 2–8 квітня 2025 року',
+        'ru': 'Досрочное голосование в Финляндии: 2–8 апреля 2025 года'
+    },
+    'election-early-abroad': {
+        'fi': 'Ennakkoäänestys ulkomailla: 2.-5. huhtikuuta 2025',
+        'en': 'Early voting abroad: April 2-5, 2025',
+        'ua': 'Дострокове голосування за кордоном: 2–5 квітня 2025 року',
+        'ru': 'Досрочное голосование за границей: 2–5 апреля 2025 года'
+    },
+    'election-who': {
+        'fi': 'Kuka voi äänestää: Täysi-ikäiset kansalaiset, joilla on rekisteröity asuinpaikka',
+        'en': 'Who can vote: Citizens of legal age with registered residence',
+        'ua': 'Хто може голосувати: громадяни, які досягли повноліття та зареєстровані за місцем проживання',
+        'ru': 'Кто может голосовать: граждане, достигшие совершеннолетия и зарегистрированные по месту жительства'
+    },
+    'election-how': {
+        'fi': 'Miten äänestää: Äänestyspaikoilla, ennakkoon tai postitse määrättyinä aikoina',
+        'en': 'How to vote: At polling stations, in advance, or by mail during specified times',
+        'ua': 'Як голосувати: на виборчих дільницях, заздалегідь або поштою у встановлені терміни',
+        'ru': 'Как голосовать: на избирательных участках, досрочно или по почте в установленные сроки'
+    },
+    'election-what': {
+        'fi': 'Mistä vaaleissa päätetään?',
+        'en': 'What is decided in the elections?',
+        'ua': 'Що вирішується на виборах?',
+        'ru': 'Что решается на выборах?'
+    },
+    'election-regional': {
+        'fi': 'Aluevaalit: Valitaan aluevaltuuston edustajat, jotka vastaavat sosiaali- ja terveyspalvelujen sekä pelastustoimen järjestämisestä.',
+        'en': 'Regional elections: Representatives of the regional council are elected, who are responsible for organizing social and health services, as well as rescue services.',
+        'ua': 'Регіональні вибори: обираються депутати регіональних рад, які відповідають за організацію соціальних та медичних послуг, а також роботу рятувальної служби.',
+        'ru': 'Региональные выборы: избираются депутаты региональных советов, которые отвечают за организацию социальных и медицинских услуг, а также работы службы спасения.'
+    },
+    'election-municipal': {
+        'fi': 'Kuntavaalit: Valitaan kunnanvaltuuston jäsenet, jotka päättävät kunnan toiminnasta ja taloudesta.',
+        'en': 'Municipal elections: Members of the municipal council are elected, who decide on the activities and finances of the municipality.',
+        'ua': 'Муніципальні вибори: обираються депутати муніципальних рад, які приймають рішення щодо діяльності та фінансів муніципалітету.',
+        'ru': 'Муниципальные выборы: избираются депутаты муниципальных советов, которые принимают решения о деятельности и финансах муниципалитета.'
+    },
+    'election-follow': {
+        'fi': 'Seuraa virallista tietoa kunnan verkkosivuilta ja osallistu vaaleihin vaikuttaaksesi paikallisyhteisön kehitykseen!',
+        'en': 'Follow official information on the municipality\'s website and participate in the elections to contribute to the development of the local community!',
+        'ua': 'Стежте за офіційною інформацією на сайті муніципалітету та беріть участь у виборах, щоб зробити свій внесок у розвиток місцевої громади!',
+        'ru': 'Следите за официальной информацией на сайте муниципалитета и участвуйте в выборах, чтобы внести свой вклад в развитие местного сообщества!'
     }
 };
