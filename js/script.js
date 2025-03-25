@@ -7,6 +7,9 @@
 // This allows us to ensure every element can be properly restored
 let dissolvingElements = new Map();
 
+// Current language - default is Finnish
+let currentLanguage = 'fi';
+
 // Document Ready function
 document.addEventListener('DOMContentLoaded', function() {
     "use strict";
@@ -65,7 +68,75 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle preloader
     handlePreloader();
+
+    // Initialize language selector
+    initLanguageSelector();
 });
+
+/**
+ * Initialize language selector
+ */
+function initLanguageSelector() {
+    // Get all language options
+    const langOptions = document.querySelectorAll('.dropdown-item[data-lang]');
+
+    // Add event listeners to language options
+    langOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+            const lang = this.getAttribute('data-lang');
+            changeLanguage(lang);
+
+            // Update language indicator in dropdown toggle
+            const langDropdown = document.getElementById('langDropdown');
+            if (langDropdown) {
+                langDropdown.innerHTML = `<i class="fas fa-globe"></i> ${lang.toUpperCase()}`;
+            }
+        });
+    });
+
+    // Check if language is stored in localStorage
+    const savedLang = localStorage.getItem('language');
+    if (savedLang) {
+        changeLanguage(savedLang);
+        // Update language indicator in dropdown toggle
+        const langDropdown = document.getElementById('langDropdown');
+        if (langDropdown) {
+            langDropdown.innerHTML = `<i class="fas fa-globe"></i> ${savedLang.toUpperCase()}`;
+        }
+    }
+}
+
+/**
+ * Change language of the website
+ * @param {string} lang - Language code (fi, en, ua, ru)
+ */
+function changeLanguage(lang) {
+    // Save language preference to localStorage
+    localStorage.setItem('language', lang);
+    currentLanguage = lang;
+
+    // Get all elements with data-lang-key attribute
+    const elements = document.querySelectorAll('[data-lang-key]');
+
+    // Update text content based on translations
+    elements.forEach(element => {
+        const key = element.getAttribute('data-lang-key');
+        if (translations[key] && translations[key][lang]) {
+            // For protected content, only update if it's still in protected state
+            if ((element.classList.contains('protected-email') ||
+                 element.classList.contains('protected-phone')) &&
+                 element.getAttribute('data-protected') === 'true') {
+                element.textContent = translations[key][lang];
+            }
+            // For all other elements
+            else if (!element.classList.contains('protected-email') &&
+                     !element.classList.contains('protected-phone')) {
+                element.textContent = translations[key][lang];
+            }
+        }
+    });
+}
 
 /**
  * Initialize hero elements with modern animation setup
@@ -666,7 +737,11 @@ function initProtectedContent() {
     const protectedEmail = document.querySelector('.protected-email');
     if (protectedEmail) {
         // Set initial state
-        protectedEmail.textContent = 'Sähköposti on suojattu - nähdäksesi klikkaa tätä';
+        if (currentLanguage === 'fi') {
+            protectedEmail.textContent = 'Sähköposti on suojattu - nähdäksesi klikkaa tätä';
+        } else if (translations['protected-email'] && translations['protected-email'][currentLanguage]) {
+            protectedEmail.textContent = translations['protected-email'][currentLanguage];
+        }
         protectedEmail.setAttribute('data-protected', 'true');
 
         // The correct email address, encoded for protection
@@ -704,7 +779,11 @@ function initProtectedContent() {
         ];
 
         // Set initial state
-        protectedPhone.textContent = 'Puhelinnumero on suojattu - nähdäksesi klikkaa tätä';
+        if (currentLanguage === 'fi') {
+            protectedPhone.textContent = 'Puhelinnumero on suojattu - nähdäksesi klikkaa tätä';
+        } else if (translations['protected-phone'] && translations['protected-phone'][currentLanguage]) {
+            protectedPhone.textContent = translations['protected-phone'][currentLanguage];
+        }
         protectedPhone.setAttribute('data-protected', 'true');
 
         // Decode phone only when needed
