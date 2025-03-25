@@ -439,5 +439,25 @@ const translations = {
         'en': 'Follow official information on the municipality\'s website and participate in the elections to contribute to the development of the local community!',
         'ua': 'Стежте за офіційною інформацією на сайті муніципалітету та беріть участь у виборах, щоб зробити свій внесок у розвиток місцевої громади!',
         'ru': 'Следите за официальной информацией на сайте муниципалитета и участвуйте в выборах, чтобы внести свой вклад в развитие местного сообщества!'
+    },
+
+    // New translations for community involvement section
+    "about-community": {
+        "fi": "Yhteisötoiminta",
+        "en": "Community Involvement",
+        "ua": "Громадська діяльність",
+        "ru": "Общественная деятельность"
+    },
+    "about-community-text": {
+        "fi": "Toimin myös aktiivisesti paikallisyhteisössä järjestämällä ukrainankielisiä satutunteja Kirkkonummen kirjastossa. Satutunnit ovat toiminnallisia, ja haluan että lapset voivat osallistua ja näyttää, miten he kokevat kertomukset. Valitsen usein perinteisiä satuja, joissa on tyypillisesti paljon eläinhahmoja. Nämä kuukausittaiset tapahtumat järjestetään yhteistyössä Integro ry:n kanssa.",
+        "en": "I'm also actively involved in the local community by organizing Ukrainian-language storytelling hours at Kirkkonummi Library. The storytelling sessions are interactive; I want children to participate and show how they experience the stories. I often choose traditional tales, which typically feature many animal characters. These monthly events are organized in cooperation with Integro Association.",
+        "ua": "Я також активно беру участь у житті місцевої громади, організовуючи години казок українською мовою в бібліотеці Кіркконуммі. Сеанси розповіді казок є інтерактивними; я хочу, щоб діти брали участь і показували, як вони сприймають історії. Я часто обираю традиційні казки, в яких зазвичай присутні багато тваринних персонажів. Ці щомісячні заходи організовуються у співпраці з асоціацією Integro.",
+        "ru": "Я также активно участвую в жизни местного сообщества, организовывая часы рассказов на украинском языке в библиотеке Киркконумми. Сессии рассказов интерактивны; я хочу, чтобы дети участвовали и показывали, как они воспринимают истории. Я часто выбираю традиционные сказки, в которых обычно много персонажей-животных. Эти ежемесячные мероприятия организуются в сотрудничестве с ассоциацией Integro."
+    },
+    "about-read-article": {
+        "fi": "Lue artikkeli satutunneista",
+        "en": "Read article about storytelling hours",
+        "ua": "Прочитати статтю про години розповідей",
+        "ru": "Прочитать статью о часах рассказов"
     }
 };
