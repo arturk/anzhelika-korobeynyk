@@ -36,6 +36,22 @@
             <a class="navbar-brand" href="#home">
                 <img src="images/logo.svg" alt="Kokoomus" class="logo-img">
             </a>
+
+            <!-- Mobile language selector (outside the collapsed menu) -->
+            <div class="mobile-lang-selector d-lg-none">
+                <div class="dropdown">
+                    <button class="btn btn-sm dropdown-toggle" type="button" id="mobileLangDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe"></i> FI
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="mobileLangDropdown">
+                        <li><a class="dropdown-item" href="#" data-lang="fi">Suomi</a></li>
+                        <li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
+                        <li><a class="dropdown-item" href="#" data-lang="ua">Українська</a></li>
+                        <li><a class="dropdown-item" href="#" data-lang="ru">Русский</a></li>
+                    </ul>
+                </div>
+            </div>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -56,7 +72,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#contact" data-lang-key="nav-contact">Yhteystiedot</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!-- Desktop language selector (visible only on larger screens) -->
+                    <li class="nav-item dropdown d-none d-lg-block">
                         <a class="nav-link dropdown-toggle" href="#" id="langDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-globe"></i> FI
                         </a>

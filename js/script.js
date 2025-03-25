@@ -77,21 +77,45 @@ document.addEventListener('DOMContentLoaded', function() {
  * Initialize language selector
  */
 function initLanguageSelector() {
-    // Get all language options
+    // Get all language options from both desktop and mobile selectors
     const langOptions = document.querySelectorAll('.dropdown-item[data-lang]');
+    const langDropdown = document.getElementById('langDropdown');
+    const mobileLangDropdown = document.getElementById('mobileLangDropdown');
 
-    // Add event listeners to language options
+    // Get dropdown menus for closing them after selection
+    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+
+    // Add event listeners to all language options
     langOptions.forEach(option => {
         option.addEventListener('click', function(e) {
             e.preventDefault();
             const lang = this.getAttribute('data-lang');
             changeLanguage(lang);
 
-            // Update language indicator in dropdown toggle
-            const langDropdown = document.getElementById('langDropdown');
+            // Update language indicator in both dropdown toggles
             if (langDropdown) {
                 langDropdown.innerHTML = `<i class="fas fa-globe"></i> ${lang.toUpperCase()}`;
             }
+            if (mobileLangDropdown) {
+                mobileLangDropdown.innerHTML = `<i class="fas fa-globe"></i> ${lang.toUpperCase()}`;
+            }
+
+            // Close dropdown menus after selection
+            dropdownMenus.forEach(menu => {
+                // If using Bootstrap 5
+                if (typeof bootstrap !== 'undefined') {
+                    const dropdownInstance = bootstrap.Dropdown.getInstance(menu.previousElementSibling);
+                    if (dropdownInstance) {
+                        dropdownInstance.hide();
+                    }
+                }
+
+                // Fallback method - remove show class from menu and parent
+                menu.classList.remove('show');
+                if (menu.parentElement) {
+                    menu.parentElement.classList.remove('show');
+                }
+            });
         });
     });
 
@@ -99,10 +123,12 @@ function initLanguageSelector() {
     const savedLang = localStorage.getItem('language');
     if (savedLang) {
         changeLanguage(savedLang);
-        // Update language indicator in dropdown toggle
-        const langDropdown = document.getElementById('langDropdown');
+        // Update language indicator in both dropdown toggles
         if (langDropdown) {
             langDropdown.innerHTML = `<i class="fas fa-globe"></i> ${savedLang.toUpperCase()}`;
+        }
+        if (mobileLangDropdown) {
+            mobileLangDropdown.innerHTML = `<i class="fas fa-globe"></i> ${savedLang.toUpperCase()}`;
         }
     }
 }
@@ -196,7 +222,7 @@ function initBootstrap() {
     const navbarCollapse = document.querySelector('.navbar-collapse');
 
     if (navbarToggler && navbarCollapse) {
-        // Close navbar when clicking outside
+        // Close navbar when clicking outside, but not when clicking language dropdown
         document.addEventListener('click', function(event) {
             const isClickInside = navbarToggler.contains(event.target) ||
                                   navbarCollapse.contains(event.target);
@@ -205,6 +231,24 @@ function initBootstrap() {
                 navbarToggler.click();
             }
         });
+
+        // Prevent language dropdown from closing the main navbar
+        const langDropdown = document.getElementById('langDropdown');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+
+        if (langDropdown && dropdownMenu) {
+            langDropdown.addEventListener('click', function(e) {
+                if (window.innerWidth < 992) {
+                    e.stopPropagation();
+                }
+            });
+
+            dropdownMenu.addEventListener('click', function(e) {
+                if (window.innerWidth < 992) {
+                    e.stopPropagation();
+                }
+            });
+        }
 
         // Ensure navbar collapse has proper height on mobile
         const updateNavHeight = () => {
